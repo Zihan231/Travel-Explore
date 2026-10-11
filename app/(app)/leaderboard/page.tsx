@@ -82,7 +82,7 @@ export default function LeaderboardPage() {
       <section className="dots relative overflow-hidden rounded-2xl bg-ruchi-600 px-4 pb-0 pt-6 text-white shadow-lift sm:px-8">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/80">{tr("Ruchi Tour Story", "রুচি ট্যুর স্টোরি")}</p>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/80">{tr("Ruchi Explore Limitless", "রুচি এক্সপ্লোর লিমিটলেস")}</p>
             <h1 className="mt-1 text-3xl font-extrabold sm:text-4xl">{t("leaderboard")}</h1>
           </div>
           <div className="grid grid-cols-2 rounded-xl bg-black/20 p-1" role="tablist">

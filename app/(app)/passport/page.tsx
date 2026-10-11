@@ -54,7 +54,7 @@ function IdentityPage({ collected }: { collected: number }) {
       <div className="relative flex">
         <div className="hidden w-14 shrink-0 flex-col items-center justify-between bg-ruchi-800 py-5 sm:flex">
           <SquareMark className="h-6 w-6" />
-          <span className="[writing-mode:vertical-rl] rotate-180 text-[10px] font-bold uppercase tracking-[0.35em] text-white/70">Ruchi Tour Story</span>
+          <span className="[writing-mode:vertical-rl] rotate-180 text-[10px] font-bold uppercase tracking-[0.35em] text-white/70">Ruchi Explore Limitless</span>
           <span className="font-display text-xl font-extrabold leading-none">রুচি</span>
         </div>
 

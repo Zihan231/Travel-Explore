@@ -7,7 +7,7 @@ export type Lang = "en" | "bn";
 type Dict = Record<string, { en: string; bn: string }>;
 
 export const dict: Dict = {
-  appName: { en: "Tour Story", bn: "ট্যুর স্টোরি" },
+  appName: { en: "Explore Limitless", bn: "এক্সপ্লোর লিমিটলেস" },
   tagline: {
     en: "Collect Bangladesh, one stamp at a time",
     bn: "এক স্ট্যাম্পে বাংলাদেশ জয় করুন",

@@ -85,13 +85,13 @@ export default function SettingsPage() {
 
       <Group title={tr("Support", "সহায়তা")}>
         <Row icon={CircleHelp} label={t("help")} />
-        <Row icon={Info} label={tr("About Ruchi Tour Story", "রুচি ট্যুর স্টোরি সম্পর্কে")} />
+        <Row icon={Info} label={tr("About Ruchi Explore Limitless", "রুচি এক্সপ্লোর লিমিটলেস সম্পর্কে")} />
       </Group>
 
       <Button variant="danger" size="lg" className="w-full" onClick={() => { signOut(); router.push("/"); }}>
         <LogOut className="h-5 w-5" /> {t("logout")}
       </Button>
-      <p className="pb-4 text-center text-xs text-ink-500">Ruchi Tour Story v1.0 · Square Food &amp; Beverage Ltd.</p>
+      <p className="pb-4 text-center text-xs text-ink-500">Ruchi Explore Limitless v1.0 · Square Food &amp; Beverage Ltd.</p>
     </div>
   );
 }

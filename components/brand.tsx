@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { useI18n } from "@/lib/i18n";
 
 export function SquareMark({ className }: { className?: string }) {
   return (
@@ -16,17 +16,9 @@ export function SquareMark({ className }: { className?: string }) {
 }
 
 export function Logo({ href = "/", className }: { href?: string; className?: string }) {
-  const { t } = useI18n();
   return (
-    <Link href={href} className={cn("inline-flex items-center gap-2.5", className)} aria-label="Ruchi Tour Story">
-      <span className="wordmark text-[34px] leading-none">রুচি</span>
-      <span className="h-7 w-px bg-paper-300 max-[350px]:hidden" />
-      <span className="flex flex-col whitespace-nowrap leading-none max-[350px]:hidden">
-        <span className="font-display text-[15px] font-bold text-ink">{t("appName")}</span>
-        <span className="mt-0.5 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-500">
-          <SquareMark className="h-2.5 w-2.5" /> Square
-        </span>
-      </span>
+    <Link href={href} className={cn("inline-flex shrink-0 items-center", className)} aria-label="Ruchi Explore Limitless">
+      <Image src="/images/logo.png" alt="Ruchi Explore Limitless" width={200} height={164} priority className="h-12 w-auto" />
     </Link>
   );
 }

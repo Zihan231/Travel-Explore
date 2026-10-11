@@ -92,7 +92,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               </span>
               <h2 className="mt-4 text-2xl font-extrabold">{tr(prompt.en, prompt.bn)}</h2>
               <p className="mt-1.5 text-sm text-ink-500">
-                {tr("You can browse freely. Join Ruchi Tour Story to react, post, check in and collect stamps.", "আপনি স্বাধীনভাবে ঘুরে দেখতে পারেন। রিয়্যাক্ট, পোস্ট, চেক-ইন ও স্ট্যাম্প সংগ্রহ করতে রুচি ট্যুর স্টোরিতে যোগ দিন।")}
+                {tr("You can browse freely. Join Ruchi Explore Limitless to react, post, check in and collect stamps.", "আপনি স্বাধীনভাবে ঘুরে দেখতে পারেন। রিয়্যাক্ট, পোস্ট, চেক-ইন ও স্ট্যাম্প সংগ্রহ করতে রুচি এক্সপ্লোর লিমিটলেসে যোগ দিন।")}
               </p>
               <div className="mt-5 grid gap-2.5">
                 <Link href="/login" onClick={() => setPrompt(null)} className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-ruchi-600 font-semibold text-white shadow-card hover:bg-ruchi-700">

@@ -35,10 +35,10 @@ const config: Config = {
           900: "#173f1e",
         },
         gold: {
-          100: "#fbf0d0",
-          400: "#e0b341",
-          500: "#c99a2e",
-          600: "#a67a1d",
+          100: "#fff1c7",
+          400: "#ffc61a",
+          500: "#f28c00",
+          600: "#b86900",
         },
         paper: {
           DEFAULT: "#faf7f2",

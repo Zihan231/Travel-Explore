@@ -18,7 +18,7 @@ export function generateMetadata({
     title: `${place.name.en} — ${place.location.en}`,
     description: place.why.en,
     openGraph: {
-      title: `${place.name.en} · Tour Story`,
+      title: `${place.name.en} · Ruchi Explore Limitless`,
       description: place.why.en,
       images: [place.image],
     },

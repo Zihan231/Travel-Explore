@@ -29,7 +29,7 @@ export function AuthForm({ mode, role }: { mode: "login" | "register"; role: "to
     setTimeout(() => {
       signIn(role);
       toast.success(
-        admin ? tr("Signed in as admin", "অ্যাডমিন হিসেবে লগইন হয়েছে") : tr("Welcome to Ruchi Tour Story", "রুচি ট্যুর স্টোরিতে স্বাগতম")
+        admin ? tr("Signed in as admin", "অ্যাডমিন হিসেবে লগইন হয়েছে") : tr("Welcome to Ruchi Explore Limitless", "রুচি এক্সপ্লোর লিমিটলেসে স্বাগতম")
       );
       router.push("/");
     }, 700);
@@ -58,7 +58,7 @@ export function AuthForm({ mode, role }: { mode: "login" | "register"; role: "to
           transition={{ duration: 0.4 }}
           className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center py-10"
         >
-          <Logo />
+          <Logo className="[&_img]:h-20" />
 
           {admin && (
             <span className="mt-8 inline-flex w-fit items-center gap-1.5 rounded-md bg-ink px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white">

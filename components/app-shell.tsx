@@ -176,8 +176,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <div className="min-h-dvh bg-paper">
       {/* Desktop top navigation (all roles) */}
       <header className={cn("sticky top-0 z-40 hidden border-b border-paper-200 bg-white/95 backdrop-blur transition-transform duration-300 lg:block", hideTop && "-translate-y-full")}>
-        <div className="mx-auto flex h-16 max-w-[1320px] items-center gap-4 px-4 xl:px-6 2xl:gap-8">
-          <Logo href="/" className="shrink-0" />
+        <div className="mx-auto flex h-[76px] max-w-[1320px] items-center gap-4 px-4 xl:px-6 2xl:gap-8">
+          <Logo href="/" className="shrink-0 [&_img]:h-[60px]" />
           <nav className="no-scrollbar flex min-w-0 flex-1 items-center gap-0.5 overflow-x-auto" aria-label="Main">
             {nav.map(({ href, icon: Icon, en, bn }) => (
               <Link
@@ -190,7 +190,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               >
                 <Icon className="hidden h-4 w-4 2xl:block" />
                 {tr(en, bn)}
-                {active(href) && <span className="absolute inset-x-2 -bottom-[13px] h-[3px] rounded-t bg-ruchi-600 xl:inset-x-3" />}
+                {active(href) && <span className="absolute inset-x-2 -bottom-[19px] h-[3px] rounded-t bg-ruchi-600 xl:inset-x-3" />}
               </Link>
             ))}
           </nav>
@@ -234,7 +234,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       {/* Mobile top bar */}
       <header className={cn("sticky top-0 z-40 border-b border-paper-200 bg-white transition-transform duration-300 lg:hidden", topHidden && "-translate-y-full")}>
         <div className="flex items-center justify-between gap-2 px-3 py-2.5">
-          <Logo href="/" className="min-w-0" />
+          <Logo href="/" className="min-w-0 [&_img]:h-11" />
           <div className="flex shrink-0 items-center gap-1.5">
             <LangToggle compact />
             {isGuest ? (

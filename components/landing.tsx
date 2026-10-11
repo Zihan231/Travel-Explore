@@ -388,8 +388,14 @@ export function Landing() {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="dots relative overflow-hidden rounded-3xl bg-ruchi-600 p-6 pb-10 sm:p-10"
+          className="dots relative isolate overflow-hidden rounded-3xl bg-ruchi-600 p-6 pb-10 sm:p-10"
         >
+          <span aria-hidden className="absolute -right-8 -top-8 -z-10 h-40 w-40 rounded-full bg-gold-500 opacity-95" />
+          <span aria-hidden className="absolute -right-2 top-2 -z-10 h-28 w-28 rounded-full bg-gold-400/70" />
+          <svg aria-hidden viewBox="0 0 400 90" preserveAspectRatio="none" className="absolute inset-x-0 bottom-0 -z-10 h-24 w-full">
+            <path d="M0 90 L0 55 L60 20 L110 52 L170 12 L240 60 L300 28 L360 58 L400 40 L400 90 Z" fill="#2c8236" />
+            <path d="M0 90 L0 72 L80 50 L140 72 L210 46 L280 74 L350 54 L400 68 L400 90 Z" fill="#1e5025" />
+          </svg>
           <p className="font-display text-sm font-bold uppercase tracking-[0.2em] text-white/80">
             {tr("Your passport", "আপনার পাসপোর্ট")}
           </p>
@@ -431,9 +437,9 @@ export function Landing() {
         </div>
       </section>
 
-      <footer className="border-t border-paper-200 bg-white">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 text-sm text-ink-500 sm:flex-row sm:px-6">
-          <Logo />
+      <footer className="bg-leaf-900 text-white">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-8 text-sm text-white/80 sm:flex-row sm:px-6">
+          <Logo className="[&_img]:h-16" />
           <p className="flex items-center gap-2">
             <SquareMark className="h-4 w-4" />
             {tr("A Ruchi microsite · Square Food & Beverage Ltd.", "রুচি মাইক্রোসাইট · স্কয়ার ফুড অ্যান্ড বেভারেজ লিমিটেড")}

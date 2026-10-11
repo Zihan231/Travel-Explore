@@ -11,7 +11,7 @@ const xpByRarity: Record<Rarity, number> = { common: 250, rare: 400, legendary: 
 const paper: Record<Rarity, string> = {
   common: "#d1181f",
   rare: "#2c8236",
-  legendary: "#c99a2e",
+  legendary: "#f28c00",
 };
 
 const plate: Record<Rarity, string> = {
@@ -29,7 +29,7 @@ function Postmark({ id, text, day, year }: { id: string; text: string; day?: str
       <circle cx="50" cy="50" r="46" fill="none" stroke="#d1181f" strokeWidth="2.5" />
       <circle cx="50" cy="50" r="40" fill="none" stroke="#d1181f" strokeWidth="1" />
       <circle cx="50" cy="50" r="22" fill="none" stroke="#d1181f" strokeWidth="1.2" />
-      <text fontSize="8.5" fontWeight="800" fill="#d1181f" letterSpacing="2.2">
+      <text fontSize="7.5" fontWeight="800" fill="#d1181f" letterSpacing="1.4">
         <textPath href={`#pm-${id}`} startOffset="0">
           {text}
         </textPath>
@@ -99,7 +99,7 @@ export function Stamp({
 
           {on ? (
             <div className="absolute -right-1 bottom-1 h-14 w-14 opacity-80 mix-blend-multiply">
-              <Postmark id={place.id} text="RUCHI TOUR STORY • COLLECTED • " day={day} year={year} />
+              <Postmark id={place.id} text="EXPLORE LIMITLESS • RUCHI • " day={day} year={year} />
             </div>
           ) : (
             <div className="absolute inset-0 grid place-items-center">

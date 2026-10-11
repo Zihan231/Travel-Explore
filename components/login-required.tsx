@@ -13,7 +13,7 @@ export function LoginRequired() {
       </span>
       <h1 className="mt-5 text-2xl font-extrabold">{tr("Log in to continue", "চালিয়ে যেতে লগ ইন করুন")}</h1>
       <p className="mt-2 text-sm text-ink-500">
-        {tr("This part of Ruchi Tour Story is only for members. Browsing places, posts, reels and hidden spots stays open to everyone.", "রুচি ট্যুর স্টোরির এই অংশ শুধু সদস্যদের জন্য। স্থান, পোস্ট, রিলস ও গোপন স্থান সবার জন্য উন্মুক্ত।")}
+        {tr("This part of Ruchi Explore Limitless is only for members. Browsing places, posts, reels and hidden spots stays open to everyone.", "রুচি এক্সপ্লোর লিমিটলেসের এই অংশ শুধু সদস্যদের জন্য। স্থান, পোস্ট, রিলস ও গোপন স্থান সবার জন্য উন্মুক্ত।")}
       </p>
       <div className="mt-6 grid w-full gap-2.5">
         <Link href="/login" className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-ruchi-600 font-semibold text-white shadow-card hover:bg-ruchi-700">

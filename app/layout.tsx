@@ -27,14 +27,14 @@ const bangla = Hind_Siliguri({
 export const metadata: Metadata = {
   metadataBase: new URL("https://tourstory.app"),
   title: {
-    default: "Ruchi Tour Story — Collect Bangladesh, one stamp at a time",
-    template: "%s · Ruchi Tour Story",
+    default: "Ruchi Explore Limitless — Collect Bangladesh, one stamp at a time",
+    template: "%s · Ruchi Explore Limitless",
   },
   description:
     "A Ruchi initiative by Square Food & Beverage. Check in at Bangladesh's best destinations, collect stamps, share your journey and climb the leaderboard.",
   keywords: ["Ruchi", "Square", "Bangladesh travel", "Cox's Bazar", "Sylhet", "Sajek", "Sundarbans", "tourism"],
   openGraph: {
-    title: "Ruchi Tour Story",
+    title: "Ruchi Explore Limitless",
     description: "Check in, collect stamps and share your journey across Bangladesh.",
     type: "website",
     locale: "en_BD",
