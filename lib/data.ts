@@ -404,6 +404,10 @@ export const leaderboard: LeaderUser[] = [
   { rank: 4, name: "Tanvir Hasan", username: "tanvir.trails", avatar: "https://i.pravatar.cc/150?img=33", stamps: 12, points: 6540, level: { en: "Adventurer", bn: "অভিযাত্রী" }, trend: "up" },
   { rank: 5, name: "Sadia Islam", username: "sadia.journeys", avatar: "https://i.pravatar.cc/150?img=44", stamps: 11, points: 6200, level: { en: "Adventurer", bn: "অভিযাত্রী" }, trend: "same" },
   { rank: 6, name: "Rafiq Ahmed", username: "rafiq", avatar: "https://i.pravatar.cc/150?img=12", stamps: 5, points: 1240, level: { en: "Curious Explorer", bn: "কৌতূহলী এক্সপ্লোরার" }, trend: "up" },
+  { rank: 7, name: "Imran Hossain", username: "imran.treks", avatar: "https://i.pravatar.cc/150?img=15", stamps: 4, points: 1180, level: { en: "Explorer", bn: "এক্সপ্লোরার" }, trend: "same" },
+  { rank: 8, name: "Farhana Rahman", username: "farhana.far", avatar: "https://i.pravatar.cc/150?img=31", stamps: 4, points: 1010, level: { en: "Explorer", bn: "এক্সপ্লোরার" }, trend: "up" },
+  { rank: 9, name: "Jahid Hasan", username: "jahid.hikes", avatar: "https://i.pravatar.cc/150?img=68", stamps: 3, points: 790, level: { en: "Curious Explorer", bn: "কৌতূহলী এক্সপ্লোরার" }, trend: "down" },
+  { rank: 10, name: "Tasnim Ara", username: "tasnim.ara", avatar: "https://i.pravatar.cc/150?img=32", stamps: 3, points: 720, level: { en: "Curious Explorer", bn: "কৌতূহলী এক্সপ্লোরার" }, trend: "same" },
 ];
 
 export const notifications: AppNotification[] = [

@@ -13,7 +13,7 @@ import { RarityTag } from "./rarity-tag";
 
 export function PlaceCard({ place, index = 0 }: { place: Place; index?: number }) {
   const { lang, tr } = useI18n();
-  const { isAdmin } = useAuth();
+  const { isAdmin, isAuthed } = useAuth();
 
   return (
     <motion.article
@@ -54,7 +54,7 @@ export function PlaceCard({ place, index = 0 }: { place: Place; index?: number }
             </button>
           </div>
         ) : (
-          place.collected && (
+          isAuthed && place.collected && (
             <span className="pointer-events-none absolute right-3 top-3 inline-flex items-center gap-1 rounded-md bg-leaf-600 px-2 py-1 text-[11px] font-bold uppercase tracking-wide text-white">
               <Check className="h-3 w-3" strokeWidth={3} />
               {tr("Stamped", "স্ট্যাম্পড")}

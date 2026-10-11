@@ -29,14 +29,14 @@ export default function ProfilePage() {
     <div className="-mx-4 -mt-5 lg:-mx-8 lg:-mt-8">
       <div className="relative h-36 sm:h-44">
         <Image src="https://images.unsplash.com/photo-1587222318667-31212ce2828d?auto=format&fit=crop&w=1200&q=80" alt="" fill sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 bg-ruchi-700/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
         <Link href="/settings" aria-label={t("settings")} className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-lg bg-white text-ink shadow-card">
           <Settings className="h-5 w-5" />
         </Link>
       </div>
 
       <div className="px-4 lg:px-8">
-        <div className="-mt-11 flex items-end justify-between">
+        <div className="relative z-10 -mt-11 flex items-end justify-between">
           <Image src={currentUser.avatar} alt={currentUser.name} width={88} height={88} className="h-[88px] w-[88px] rounded-2xl object-cover ring-4 ring-paper" />
           <div className="mb-1 flex gap-2">
             <Button variant="outline" size="icon" aria-label="Share" onClick={() => toast.success(tr("Profile link copied", "প্রোফাইল লিংক কপি হয়েছে"))}><Share2 className="h-4 w-4" /></Button>

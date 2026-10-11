@@ -42,25 +42,7 @@ export function Landing() {
   const hero = places.filter((p) => p.collected).slice(0, 3);
 
   return (
-    <div className="min-h-dvh bg-paper">
-      <header className="sticky top-0 z-50 border-b border-paper-200 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
-          <Logo />
-          <div className="flex items-center gap-2">
-            <LangToggle className="hidden sm:inline-flex" />
-            <Link href="/login?role=admin">
-              <Button variant="outline" size="sm">
-                <ShieldCheck className="h-4 w-4" />
-                <span className="hidden sm:inline">{tr("Admin login", "অ্যাডমিন লগইন")}</span>
-                <span className="sm:hidden">{tr("Admin", "অ্যাডমিন")}</span>
-              </Button>
-            </Link>
-            <Link href="/login">
-              <Button size="sm">{t("login")}</Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+    <div className="bg-paper">
 
       {/* Hero */}
       <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:py-16">

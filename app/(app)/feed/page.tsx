@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ImagePlus, Video } from "lucide-react";
+import { ImagePlus, Video, LogIn } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
 import { posts, currentUser, places } from "@/lib/data";
@@ -10,7 +10,7 @@ import { PostCard } from "@/components/post-card";
 
 export default function FeedPage() {
   const { tr, t } = useI18n();
-  const { isAdmin } = useAuth();
+  const { isAdmin, isGuest } = useAuth();
 
   return (
     <div className="space-y-5">
@@ -32,7 +32,14 @@ export default function FeedPage() {
         ))}
       </div>
 
-      {!isAdmin && (
+      {isGuest && (
+        <Link href="/login" className="flex items-center gap-3 rounded-2xl border border-dashed border-paper-300 bg-white p-4 shadow-card">
+          <span className="grid h-10 w-10 place-items-center rounded-full bg-ruchi-50 text-ruchi-600"><LogIn className="h-5 w-5" /></span>
+          <span className="flex-1 text-sm"><b>{tr("Log in to post and react", "পোস্ট ও রিয়্যাক্ট করতে লগ ইন করুন")}</b><br /><span className="text-ink-500">{tr("You can read everything without an account.", "অ্যাকাউন্ট ছাড়াই সব পড়তে পারবেন।")}</span></span>
+        </Link>
+      )}
+
+      {!isAdmin && !isGuest && (
         <Link href="/create" className="flex items-center gap-3 rounded-2xl border border-paper-200 bg-white p-3 shadow-card">
           <Image src={currentUser.avatar} alt="" width={40} height={40} className="h-10 w-10 rounded-full object-cover" />
           <span className="flex-1 rounded-lg bg-paper px-4 py-2.5 text-sm text-ink-500">{tr("Share your trip…", "আপনার ভ্রমণ শেয়ার করুন…")}</span>

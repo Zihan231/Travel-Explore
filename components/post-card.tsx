@@ -12,7 +12,7 @@ import { ReactionBar } from "./reaction-bar";
 
 export function PostCard({ post, index = 0 }: { post: Post; index?: number }) {
   const { lang, tr } = useI18n();
-  const { isAdmin } = useAuth();
+  const { isAdmin, requireAuth } = useAuth();
   const isSpot = post.type === "spot";
 
   return (
@@ -50,7 +50,7 @@ export function PostCard({ post, index = 0 }: { post: Post; index?: number }) {
           </button>
         ) : (
           <button
-            onClick={() => toast.success(tr("Reported. Thank you.", "রিপোর্ট করা হয়েছে। ধন্যবাদ।"))}
+            onClick={() => requireAuth({ en: "Log in to report a post", bn: "পোস্ট রিপোর্ট করতে লগ ইন করুন" }) && toast.success(tr("Reported. Thank you.", "রিপোর্ট করা হয়েছে। ধন্যবাদ।"))}
             aria-label="Report"
             className="grid h-9 w-9 place-items-center rounded-lg text-ink-400 hover:bg-paper-100"
           >

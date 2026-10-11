@@ -9,6 +9,7 @@ import { useAuth } from "@/lib/auth";
 import { places, missions, currentUser } from "@/lib/data";
 import { Stamp } from "@/components/stamp";
 import { CheckinsReview } from "@/components/admin-parts";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type Tab = "stamps" | "missions" | "badges";
@@ -121,7 +122,49 @@ function Passport() {
   );
 }
 
+function GuestPassport() {
+  const { lang, tr, t } = useI18n();
+  return (
+    <div className="space-y-6">
+      <section className="dots relative overflow-hidden rounded-2xl bg-ruchi-600 p-6 text-white shadow-lift">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/80">{tr("Digital passport", "ডিজিটাল পাসপোর্ট")}</p>
+        <h1 className="mt-1 text-3xl font-extrabold sm:text-4xl">{tr("Every place has its own stamp.", "প্রতিটি স্থানের নিজস্ব স্ট্যাম্প আছে।")}</h1>
+        <p className="mt-2 max-w-md text-white/85">{tr("Visit a destination, check in with a live selfie and the stamp is yours. Log in to start your collection.", "গন্তব্যে গিয়ে লাইভ সেলফিতে চেক-ইন করলেই স্ট্যাম্প আপনার। সংগ্রহ শুরু করতে লগ ইন করুন।")}</p>
+        <div className="mt-5 flex flex-wrap gap-2.5">
+          <Link href="/register"><Button variant="dark">{tr("Start collecting", "সংগ্রহ শুরু করুন")}</Button></Link>
+          <Link href="/login"><Button variant="outline">{tr("Log in", "লগ ইন")}</Button></Link>
+        </div>
+      </section>
+
+      <div>
+        <p className="mb-4 text-sm font-semibold text-ink-500">{tr("Stamps you can collect", "যে স্ট্যাম্পগুলো সংগ্রহ করা যাবে")}: <span className="text-ink">{places.length}</span></p>
+        <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
+          {places.map((p) => (
+            <Link key={p.id} href={`/places/${p.slug}`} className="block">
+              <Stamp place={p} collected={false} />
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      <section className="space-y-3">
+        <h2 className="text-xl font-extrabold">{t("missions")}</h2>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {missions.map((m) => (
+            <div key={m.id} className="rounded-2xl border border-paper-200 bg-white p-4 shadow-card">
+              <p className="font-display text-lg font-bold">{pick(m.title, lang)}</p>
+              <p className="text-sm text-ink-500">{pick(m.desc, lang)}</p>
+              <p className="mt-2.5 flex items-center gap-1.5 text-xs font-semibold text-leaf-700"><Award className="h-3.5 w-3.5" />{tr("Reward", "পুরস্কার")}: {pick(m.reward, lang)}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
 export default function PassportPage() {
-  const { isAdmin } = useAuth();
+  const { isAdmin, isGuest } = useAuth();
+  if (isGuest) return <GuestPassport />;
   return isAdmin ? <CheckinsReview /> : <Passport />;
 }

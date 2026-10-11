@@ -21,7 +21,7 @@ const budgetLabel = {
 
 export function PlaceDetail({ place }: { place: Place }) {
   const { lang, tr, t } = useI18n();
-  const { isAdmin } = useAuth();
+  const { isAdmin, isGuest, requireAuth } = useAuth();
   const router = useRouter();
   const [saved, setSaved] = useState(false);
   const [img, setImg] = useState(0);
@@ -37,7 +37,7 @@ export function PlaceDetail({ place }: { place: Place }) {
           </button>
           <div className="flex gap-2">
             {!isAdmin && (
-              <button onClick={() => { setSaved((v) => !v); toast.success(saved ? tr("Removed from wishlist", "উইশলিস্ট থেকে সরানো হয়েছে") : tr("Saved to wishlist", "উইশলিস্টে সংরক্ষিত")); }} aria-label="Save" className="grid h-10 w-10 place-items-center rounded-lg bg-white text-ink shadow-card">
+              <button onClick={() => { if (!requireAuth({ en: "Log in to save places", bn: "স্থান সংরক্ষণ করতে লগ ইন করুন" })) return; setSaved((v) => !v); toast.success(saved ? tr("Removed from wishlist", "উইশলিস্ট থেকে সরানো হয়েছে") : tr("Saved to wishlist", "উইশলিস্টে সংরক্ষিত")); }} aria-label="Save" className="grid h-10 w-10 place-items-center rounded-lg bg-white text-ink shadow-card">
                 <Heart className={cn("h-5 w-5", saved && "fill-ruchi-600 text-ruchi-600")} />
               </button>
             )}
@@ -49,7 +49,7 @@ export function PlaceDetail({ place }: { place: Place }) {
         <div className="absolute inset-x-0 bottom-0 p-5 text-white">
           <div className="mb-2 flex items-center gap-2">
             <RarityTag rarity={place.rarity} />
-            {!isAdmin && place.collected && (
+            {!isAdmin && !isGuest && place.collected && (
               <span className="inline-flex items-center gap-1 rounded-md bg-leaf-600 px-2 py-1 text-[11px] font-bold uppercase tracking-wide">
                 <Check className="h-3 w-3" strokeWidth={3} /> {tr("Stamped", "স্ট্যাম্পড")}
               </span>
@@ -159,11 +159,17 @@ export function PlaceDetail({ place }: { place: Place }) {
         )}
       </div>
 
-      <div className="safe-bottom sticky bottom-[68px] z-30 border-t border-paper-200 bg-white/95 px-4 py-3 backdrop-blur lg:bottom-0 lg:px-8">
+      <div className="safe-bottom sticky bottom-0 z-30 border-t border-paper-200 bg-white px-4 py-3 shadow-[0_-10px_28px_-14px_rgba(28,25,23,0.25)] lg:px-8">
         {isAdmin ? (
           <Button size="lg" variant="dark" className="w-full" onClick={() => toast.info(tr("Edit form opens here", "এডিট ফর্ম এখানে খুলবে"))}>
             <Pencil className="h-5 w-5" /> {tr("Edit destination", "গন্তব্য এডিট করুন")}
           </Button>
+        ) : isGuest ? (
+          <Link href="/login">
+            <Button size="lg" className="w-full">
+              <MapPin className="h-5 w-5" /> {tr("Log in to check in", "চেক-ইন করতে লগ ইন করুন")}
+            </Button>
+          </Link>
         ) : place.collected ? (
           <Link href="/passport">
             <Button size="lg" variant="outline" className="w-full">

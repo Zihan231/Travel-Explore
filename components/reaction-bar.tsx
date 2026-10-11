@@ -8,6 +8,7 @@ import type { IconType } from "react-icons";
 import { toast } from "sonner";
 import type { ReactionType } from "@/lib/types";
 import { useI18n } from "@/lib/i18n";
+import { useAuth } from "@/lib/auth";
 import { formatCount, cn } from "@/lib/utils";
 
 const REACTIONS: { type: ReactionType; Icon: IconType; en: string; bn: string; color: string }[] = [
@@ -30,6 +31,7 @@ export function ReactionBar({
   shares: number;
 }) {
   const { tr } = useI18n();
+  const { requireAuth } = useAuth();
   const [picker, setPicker] = useState(false);
   const [current, setCurrent] = useState<ReactionType | null>(myReaction ?? null);
 
@@ -39,6 +41,7 @@ export function ReactionBar({
   const top = REACTIONS.filter((r) => reactions[r.type] > 0).slice(0, 3);
 
   const choose = (type: ReactionType) => {
+    if (!requireAuth({ en: "Log in to react", bn: "রিয়্যাক্ট করতে লগ ইন করুন" })) return;
     setCurrent((p) => (p === type ? null : type));
     setPicker(false);
   };
@@ -89,7 +92,7 @@ export function ReactionBar({
             )}
           </AnimatePresence>
           <button
-            onClick={() => (current ? choose(current) : setPicker((v) => !v))}
+            onClick={() => { if (!requireAuth({ en: "Log in to react", bn: "রিয়্যাক্ট করতে লগ ইন করুন" })) return; current ? choose(current) : setPicker((v) => !v); }}
             className={cn(
               "flex w-full items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-semibold transition-colors hover:bg-paper-100",
               active ? active.color : "text-ink-700"
@@ -100,7 +103,7 @@ export function ReactionBar({
           </button>
         </div>
 
-        <button className="flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-semibold text-ink-700 transition-colors hover:bg-paper-100">
+        <button onClick={() => requireAuth({ en: "Log in to comment", bn: "মন্তব্য করতে লগ ইন করুন" })} className="flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-semibold text-ink-700 transition-colors hover:bg-paper-100">
           <MessageCircle className="h-[17px] w-[17px]" />
           {tr("Comment", "মন্তব্য")}
         </button>

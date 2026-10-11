@@ -15,7 +15,7 @@ import { Logo } from "@/components/brand";
 import { LangToggle } from "@/components/lang-toggle";
 import { cn } from "@/lib/utils";
 
-export function AuthForm({ mode, role }: { mode: "login" | "register"; role: Role }) {
+export function AuthForm({ mode, role }: { mode: "login" | "register"; role: "tourist" | "admin" }) {
   const { tr, t } = useI18n();
   const { signIn } = useAuth();
   const router = useRouter();
@@ -31,7 +31,7 @@ export function AuthForm({ mode, role }: { mode: "login" | "register"; role: Rol
       toast.success(
         admin ? tr("Signed in as admin", "অ্যাডমিন হিসেবে লগইন হয়েছে") : tr("Welcome to Ruchi Tour Story", "রুচি ট্যুর স্টোরিতে স্বাগতম")
       );
-      router.push("/home");
+      router.push("/");
     }, 700);
   };
 

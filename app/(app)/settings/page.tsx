@@ -45,7 +45,7 @@ export default function SettingsPage() {
     <div className="space-y-5">
       <h1 className="text-3xl font-extrabold">{t("settings")}</h1>
 
-      <Link href={isAdmin ? "/home" : "/profile"} className="flex items-center gap-3 rounded-2xl border border-paper-200 bg-white p-4 shadow-card">
+      <Link href={isAdmin ? "/" : "/profile"} className="flex items-center gap-3 rounded-2xl border border-paper-200 bg-white p-4 shadow-card">
         <Image src={currentUser.avatar} alt="" width={52} height={52} className="h-[52px] w-[52px] rounded-xl object-cover" />
         <div className="flex-1">
           <p className="font-bold">{isAdmin ? "Square Admin" : currentUser.name}</p>

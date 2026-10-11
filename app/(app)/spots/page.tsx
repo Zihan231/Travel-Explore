@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 
 export default function SpotsPage() {
   const { tr } = useI18n();
-  const { isAdmin } = useAuth();
+  const { isAdmin, isGuest } = useAuth();
   const [tab, setTab] = useState<"pending" | "published">("pending");
   const approved = posts.filter((p) => p.type === "spot" && p.status === "approved");
 
@@ -52,19 +52,19 @@ export default function SpotsPage() {
         <p className="mt-1 text-ink-500">{tr("Places locals know, reviewed by our team.", "স্থানীয়দের জানা জায়গা, আমাদের টিমের যাচাইকৃত।")}</p>
       </div>
 
-      <Link href="/create?type=spot" className="flex items-center gap-4 rounded-2xl bg-leaf-700 p-4 text-white shadow-card">
+      <Link href={isGuest ? "/login" : "/create?type=spot"} className="flex items-center gap-4 rounded-2xl bg-leaf-700 p-4 text-white shadow-card">
         <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-white/15"><Plus className="h-6 w-6" /></span>
         <div className="flex-1">
           <p className="font-display text-lg font-bold">{tr("Know a hidden spot?", "কোনো গোপন স্থান জানেন?")}</p>
           <p className="text-sm text-white/80">{tr("Submit it with photos, video and the route.", "ছবি, ভিডিও ও রুটসহ জমা দিন।")}</p>
         </div>
-        <Button variant="outline" size="sm" className="border-0 text-ink">{tr("Submit", "জমা দিন")}</Button>
+        <Button variant="outline" size="sm" className="border-0 text-ink">{isGuest ? tr("Log in", "লগ ইন") : tr("Submit", "জমা দিন")}</Button>
       </Link>
 
-      <div className="flex items-center gap-3 rounded-xl border border-gold-400/50 bg-gold-100/60 p-3.5 text-sm">
+      {!isGuest && <div className="flex items-center gap-3 rounded-xl border border-gold-400/50 bg-gold-100/60 p-3.5 text-sm">
         <Clock className="h-5 w-5 shrink-0 text-gold-600" />
         <p className="text-ink-700">{tr("Your submission “Amiakhum Waterfall” is awaiting admin approval.", "আপনার জমা “আমিয়াখুম জলপ্রপাত” অ্যাডমিন অনুমোদনের অপেক্ষায়।")}</p>
-      </div>
+      </div>}
 
       <div className="space-y-4">
         {approved.map((post, i) => <PostCard key={post.id} post={post} index={i} />)}

@@ -5,8 +5,8 @@ import { AuthProvider } from "@/lib/auth";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <AuthProvider>
-      <I18nProvider>{children}</I18nProvider>
-    </AuthProvider>
+    <I18nProvider>
+      <AuthProvider>{children}</AuthProvider>
+    </I18nProvider>
   );
 }

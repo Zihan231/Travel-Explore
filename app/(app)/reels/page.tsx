@@ -14,7 +14,7 @@ import { formatCount, cn } from "@/lib/utils";
 export default function ReelsPage() {
   return (
     <div className="-mx-4 -mt-5 lg:-mx-8 lg:-mt-8">
-      <div className="mx-auto h-[calc(100dvh-8.5rem)] max-w-[440px] snap-y snap-mandatory overflow-y-scroll no-scrollbar lg:h-dvh">
+      <div className="mx-auto h-[calc(100dvh-8.5rem)] max-w-[440px] snap-y snap-mandatory overflow-y-scroll no-scrollbar lg:h-[calc(100dvh-4rem)]">
         {reels.map((r) => (
           <ReelItem key={r.id} reel={r} />
         ))}
@@ -25,11 +25,12 @@ export default function ReelsPage() {
 
 function ReelItem({ reel }: { reel: Reel }) {
   const { lang, tr } = useI18n();
-  const { isAdmin } = useAuth();
+  const { isAdmin, requireAuth } = useAuth();
   const [liked, setLiked] = useState(false);
   const [burst, setBurst] = useState(false);
 
   const like = () => {
+    if (!requireAuth({ en: "Log in to like reels", bn: "রিল লাইক করতে লগ ইন করুন" })) return;
     setLiked(true);
     setBurst(true);
     setTimeout(() => setBurst(false), 650);
@@ -55,8 +56,8 @@ function ReelItem({ reel }: { reel: Reel }) {
 
       <div className="absolute bottom-6 right-3 flex flex-col items-center gap-4 text-white">
         {[
-          { icon: Heart, n: reel.likes + (liked ? 1 : 0), on: liked, click: () => setLiked((v) => !v), label: "Like" },
-          { icon: MessageCircle, n: reel.comments, label: "Comment" },
+          { icon: Heart, n: reel.likes + (liked ? 1 : 0), on: liked, click: () => requireAuth({ en: "Log in to like reels", bn: "রিল লাইক করতে লগ ইন করুন" }) && setLiked((v) => !v), label: "Like" },
+          { icon: MessageCircle, n: reel.comments, label: "Comment", click: () => { requireAuth({ en: "Log in to comment", bn: "মন্তব্য করতে লগ ইন করুন" }); } },
           { icon: Share2, n: reel.shares, label: "Share", click: () => toast.success(tr("Link copied", "লিংক কপি হয়েছে")) },
         ].map((a) => (
           <button key={a.label} onClick={a.click} aria-label={a.label} className="flex flex-col items-center gap-1">
@@ -80,7 +81,7 @@ function ReelItem({ reel }: { reel: Reel }) {
             @{reel.author.username}
             {reel.author.verified && <BadgeCheck className="h-4 w-4 text-white" />}
           </span>
-          {!isAdmin && <button className="rounded-md border border-white/70 px-2.5 py-1 text-xs font-bold">{tr("Follow", "ফলো")}</button>}
+          {!isAdmin && <button onClick={() => requireAuth({ en: "Log in to follow creators", bn: "ফলো করতে লগ ইন করুন" })} className="rounded-md border border-white/70 px-2.5 py-1 text-xs font-bold">{tr("Follow", "ফলো")}</button>}
         </div>
         <span className="mt-3 inline-flex items-center gap-1 rounded-md bg-ruchi-600 px-2 py-1 text-xs font-bold">
           <MapPin className="h-3.5 w-3.5" /> {pick(reel.place, lang)}

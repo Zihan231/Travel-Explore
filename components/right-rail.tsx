@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Bell, Plus, ChevronRight, Trophy, TrendingUp, Clock, Flame } from "lucide-react";
+import { Bell, Plus, ChevronRight, Trophy, TrendingUp, Clock, Flame, LogIn, UserPlus } from "lucide-react";
 import { useI18n, pick } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
 import { currentUser, leaderboard, places, pendingSpots, missions } from "@/lib/data";
@@ -27,25 +27,22 @@ function Card({ title, href, children }: { title: string; href?: string; childre
 
 export function RightRail() {
   const { lang, tr } = useI18n();
-  const { isAdmin } = useAuth();
+  const { isAdmin, isGuest } = useAuth();
   const collected = places.filter((p) => p.collected).length;
   const trending = [...places].sort((a, b) => b.visitors - a.visitors).slice(0, 4);
   const mission = missions[1];
 
   return (
-    <div className="sticky top-5 space-y-4">
-      <div className="flex items-center justify-end gap-2">
-        <Link href="/notifications" aria-label={tr("Notifications", "নোটিফিকেশন")} className="relative grid h-10 w-10 place-items-center rounded-lg border border-paper-200 bg-white shadow-card">
-          <Bell className="h-[18px] w-[18px]" />
-          <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-ruchi-600 ring-2 ring-white" />
-        </Link>
-        <Link href="/create" className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-ruchi-600 px-4 text-sm font-semibold text-white shadow-card hover:bg-ruchi-700">
-          <Plus className="h-4 w-4" />
-          {isAdmin ? tr("Add destination", "গন্তব্য যোগ") : tr("Create", "পোস্ট")}
-        </Link>
-      </div>
-
-      {isAdmin ? (
+    <div className="sticky top-24 max-h-[calc(100dvh-7rem)] space-y-4 overflow-y-auto pb-2 no-scrollbar">
+      {isGuest ? (
+        <section className="dots overflow-hidden rounded-2xl bg-ruchi-600 p-5 text-white shadow-lift">
+          <h3 className="font-display text-xl font-extrabold leading-tight">{tr("Collect Bangladesh, one stamp at a time", "এক স্ট্যাম্পে বাংলাদেশ জয় করুন")}</h3>
+          <p className="mt-1.5 text-sm text-white/85">{tr("Join free to check in, react, post and join the leaderboard.", "চেক-ইন, রিয়্যাক্ট, পোস্ট ও লিডারবোর্ডে যোগ দিতে বিনামূল্যে জয়েন করুন।")}</p>
+          <Link href="/register" className="mt-4 inline-flex h-10 items-center gap-2 rounded-lg bg-white px-4 text-sm font-bold text-ruchi-700">
+            <UserPlus className="h-4 w-4" /> {tr("Create free account", "বিনামূল্যে অ্যাকাউন্ট খুলুন")}
+          </Link>
+        </section>
+      ) : isAdmin ? (
         <Card title={tr("Review queue", "রিভিউ কিউ")} href="/spots">
           <div className="flex items-center gap-3">
             <span className="grid h-11 w-11 place-items-center rounded-xl bg-gold-100 text-gold-600"><Clock className="h-5 w-5" /></span>
