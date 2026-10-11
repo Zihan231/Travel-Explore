@@ -4,7 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, FreeMode } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import {
   ArrowRight,
@@ -17,25 +18,309 @@ import {
   Clapperboard,
   MapPin,
   CalendarDays,
+  ChevronLeft,
+  ChevronRight,
+  Play,
+  Heart,
+  CircleCheck,
+  Loader2,
 } from "lucide-react";
+import { useState } from "react";
 import { useI18n, pick } from "@/lib/i18n";
-import { places } from "@/lib/data";
+import { places, leaderboard, reels } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Logo, SquareMark } from "@/components/brand";
 import { LangToggle } from "@/components/lang-toggle";
 import { Stamp } from "@/components/stamp";
 
-const steps = [
-  { icon: Navigation, en: ["Reach the spot", "Turn on location. We confirm you are really there."], bn: ["স্থানে পৌঁছান", "লোকেশন চালু করুন। আপনি সত্যিই সেখানে আছেন কিনা আমরা যাচাই করব।"] },
-  { icon: Camera, en: ["Record a selfie", "A short live video from the front camera. No gallery uploads."], bn: ["সেলফি রেকর্ড করুন", "ফ্রন্ট ক্যামেরায় ছোট লাইভ ভিডিও। গ্যালারি থেকে আপলোড নয়।"] },
-  { icon: StampIcon, en: ["Collect your stamp", "A postmarked stamp lands in your digital passport."], bn: ["স্ট্যাম্প সংগ্রহ করুন", "পোস্টমার্কসহ স্ট্যাম্প আপনার ডিজিটাল পাসপোর্টে যোগ হবে।"] },
-];
+function RarityDot({ r }: { r: string }) {
+  return <span className={`h-2 w-2 rounded-full ${r === "legendary" ? "bg-gold-400" : r === "rare" ? "bg-leaf-400" : "bg-white"}`} />;
+}
 
-const features = [
-  { icon: Sparkles, en: ["Hidden spots", "Share places few people know. Admins review before publishing."], bn: ["গোপন স্থান", "কম পরিচিত জায়গা শেয়ার করুন। প্রকাশের আগে অ্যাডমিন যাচাই করবেন।"] },
-  { icon: Clapperboard, en: ["Reels & posts", "Photos, videos and routes from fellow travellers, with reactions."], bn: ["রিলস ও পোস্ট", "সহযাত্রীদের ছবি, ভিডিও ও রুট, সাথে রিয়্যাকশন।"] },
-  { icon: Trophy, en: ["Leaderboard", "Visit more places than your friends and climb the weekly ranking."], bn: ["লিডারবোর্ড", "বন্ধুদের চেয়ে বেশি স্থান ঘুরুন এবং সাপ্তাহিক র‍্যাংকে উঠুন।"] },
-];
+function Phone({ children, className }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`relative mx-auto h-[372px] w-[196px] origin-top scale-[0.9] rounded-[32px] border-[5px] border-ink bg-ink shadow-lift ${className ?? ""}`}>
+      <div className="absolute left-1/2 top-2 z-30 h-[14px] w-16 -translate-x-1/2 rounded-full bg-ink" />
+      <div className="relative h-full w-full overflow-hidden rounded-[26px] bg-white">{children}</div>
+    </div>
+  );
+}
+
+function StatusBar({ light }: { light?: boolean }) {
+  return (
+    <div className={`absolute inset-x-0 top-0 z-20 flex items-center justify-between px-4 pt-2 text-[9px] font-bold ${light ? "text-white" : "text-ink"}`}>
+      <span>9:41</span>
+      <span className="flex items-center gap-1"><span className="h-1.5 w-3 rounded-sm bg-current" /><span className="h-1.5 w-1.5 rounded-full bg-current" /></span>
+    </div>
+  );
+}
+
+function MapScene() {
+  const { tr } = useI18n();
+  return (
+    <Phone>
+      <StatusBar />
+      <svg viewBox="0 0 186 362" className="absolute inset-0 h-full w-full" aria-hidden>
+        <rect width="186" height="362" fill="#eef2e6" />
+        <path d="M-10 250 C 40 220, 70 270, 120 240 S 190 230, 200 210 L 200 290 C 150 300, 110 280, 70 310 S -10 300, -10 300 Z" fill="#cfe6f3" />
+        <rect x="14" y="60" width="52" height="38" rx="5" fill="#d3e8cc" />
+        <rect x="126" y="96" width="46" height="52" rx="5" fill="#d3e8cc" />
+        <rect x="18" y="150" width="34" height="30" rx="5" fill="#e4e0d3" />
+        <rect x="130" y="170" width="36" height="26" rx="5" fill="#e4e0d3" />
+        <g stroke="#fff" strokeWidth="9" strokeLinecap="round" fill="none">
+          <path d="M-5 120 L 200 135" /><path d="M78 30 L 96 330" /><path d="M-5 200 C 50 190, 100 210, 200 190" />
+        </g>
+        <g stroke="#fff" strokeWidth="4" strokeLinecap="round" fill="none"><path d="M30 20 L 60 110" /><path d="M150 40 L 140 230" /></g>
+        <path d="M30 330 C 60 300, 70 250, 92 196" stroke="#d1181f" strokeWidth="3" strokeDasharray="1 7" strokeLinecap="round" fill="none" />
+      </svg>
+
+      <div className="absolute left-1/2 top-[172px] -translate-x-1/2 -translate-y-1/2">
+        <motion.span animate={{ scale: [1, 1.9], opacity: [0.35, 0] }} transition={{ duration: 2, repeat: Infinity }} className="absolute inset-0 m-auto h-24 w-24 rounded-full bg-ruchi-600" />
+        <span className="absolute inset-0 m-auto h-24 w-24 rounded-full border-2 border-dashed border-ruchi-600 bg-ruchi-600/10" />
+        <span className="relative grid h-24 w-24 place-items-center">
+          <span className="grid h-11 w-11 place-items-center rounded-full bg-ruchi-600 text-white shadow-lift ring-4 ring-white"><MapPin className="h-5 w-5" /></span>
+        </span>
+      </div>
+
+      <div className="absolute inset-x-3 bottom-4 rounded-2xl bg-white p-3 shadow-lift">
+        <div className="flex items-center gap-2">
+          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-leaf-600 text-white"><CircleCheck className="h-4 w-4" /></span>
+          <div className="min-w-0 text-left">
+            <p className="text-[11px] font-extrabold leading-tight">{tr("You are here", "আপনি এখানে")}</p>
+            <p className="truncate text-[9px] text-ink-500">{tr("18 m from Cox's Bazar", "কক্সবাজার থেকে ১৮ মি")}</p>
+          </div>
+        </div>
+        <div className="mt-2 flex items-center justify-between rounded-lg bg-ruchi-600 px-3 py-1.5 text-[10px] font-bold text-white"><span>{tr("Continue", "এগিয়ে যান")}</span><ArrowRight className="h-3 w-3" /></div>
+      </div>
+    </Phone>
+  );
+}
+
+function SelfieScene() {
+  const { tr } = useI18n();
+  return (
+    <Phone>
+      <Image src="https://i.pravatar.cc/400?img=12" alt="" fill sizes="200px" className="object-cover" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
+      <StatusBar light />
+      <span className="absolute left-3 top-8 z-20 inline-flex items-center gap-1 rounded bg-ruchi-600 px-1.5 py-0.5 text-[9px] font-extrabold text-white">
+        <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1, repeat: Infinity }} className="h-1.5 w-1.5 rounded-full bg-white" />REC
+      </span>
+      <span className="absolute right-3 top-8 z-20 rounded bg-black/45 px-1.5 py-0.5 text-[9px] font-bold text-white backdrop-blur">0:08</span>
+
+      <div className="absolute inset-x-5 top-[88px] bottom-[110px]">
+        {["left-0 top-0 border-l-2 border-t-2 rounded-tl-lg", "right-0 top-0 border-r-2 border-t-2 rounded-tr-lg", "left-0 bottom-0 border-l-2 border-b-2 rounded-bl-lg", "right-0 bottom-0 border-r-2 border-b-2 rounded-br-lg"].map((c) => (
+          <span key={c} className={`absolute h-5 w-5 border-white ${c}`} />
+        ))}
+      </div>
+
+      <div className="absolute inset-x-0 bottom-3 z-20 flex flex-col items-center text-white">
+        <p className="mb-2 text-[10px] font-semibold drop-shadow">{tr("Show us the view!", "চারপাশের দৃশ্য দেখান!")}</p>
+        <span className="relative grid h-14 w-14 place-items-center">
+          <svg className="absolute inset-0 -rotate-90" viewBox="0 0 56 56"><circle cx="28" cy="28" r="25" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="3" /><motion.circle cx="28" cy="28" r="25" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeDasharray="157" animate={{ strokeDashoffset: [157, 0] }} transition={{ duration: 3, repeat: Infinity, ease: "linear" }} /></svg>
+          <span className="h-9 w-9 rounded-md bg-ruchi-600" />
+        </span>
+      </div>
+    </Phone>
+  );
+}
+
+function StampScene() {
+  const { tr } = useI18n();
+  const dots = ["#d1181f", "#2c8236", "#c99a2e", "#d1181f", "#2c8236", "#c99a2e", "#d1181f", "#2c8236"];
+  return (
+    <Phone>
+      <StatusBar />
+      <div className="dots-dark absolute inset-0 bg-paper" />
+      {dots.map((c, i) => (
+        <motion.span
+          key={i}
+          className="absolute top-0 h-2 w-2 rounded-sm"
+          style={{ left: `${10 + i * 11}%`, backgroundColor: c }}
+          animate={{ y: [-10, 360], rotate: [0, 360], opacity: [1, 1, 0] }}
+          transition={{ duration: 3 + (i % 3) * 0.6, repeat: Infinity, delay: i * 0.35, ease: "easeIn" }}
+        />
+      ))}
+      <div className="relative z-10 flex h-full flex-col items-center px-4 pt-12 text-center">
+        <p className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-[0.16em] text-leaf-700"><CircleCheck className="h-3.5 w-3.5" />{tr("Stamp collected", "স্ট্যাম্প সংগৃহীত")}</p>
+        <motion.div initial={{ rotate: 8, scale: 1.2 }} whileInView={{ rotate: -4, scale: 1 }} viewport={{ once: true }} transition={{ type: "spring", stiffness: 160, damping: 12 }} className="mt-3 w-32">
+          <Stamp place={places[0]} collected day="12 MAR" year="2026" />
+        </motion.div>
+        <p className="mt-3 font-display text-base font-extrabold leading-none">{pick(places[0].name, "en")}</p>
+        <span className="mt-1.5 rounded-full bg-ruchi-600 px-2.5 py-0.5 text-[10px] font-bold text-white">+250 XP</span>
+      </div>
+    </Phone>
+  );
+}
+
+function HowItWorks() {
+  const { tr } = useI18n();
+  const steps = [
+    { n: 1, icon: Navigation, tint: "bg-leaf-100", title: tr("Reach the spot", "স্থানে পৌঁছান"), desc: tr("Turn on location. We confirm you are really there.", "লোকেশন চালু করুন। আপনি সত্যিই সেখানে আছেন কিনা আমরা যাচাই করব।"), scene: <MapScene /> },
+    { n: 2, icon: Camera, tint: "bg-ruchi-100", title: tr("Record a selfie", "সেলফি রেকর্ড করুন"), desc: tr("A short live video from the front camera. No gallery uploads.", "ফ্রন্ট ক্যামেরায় ছোট লাইভ ভিডিও। গ্যালারি থেকে আপলোড নয়।"), scene: <SelfieScene /> },
+    { n: 3, icon: StampIcon, tint: "bg-gold-100", title: tr("Collect your stamp", "স্ট্যাম্প সংগ্রহ করুন"), desc: tr("A postmarked stamp lands in your digital passport.", "পোস্টমার্কসহ স্ট্যাম্প আপনার ডিজিটাল পাসপোর্টে যোগ হবে।"), scene: <StampScene /> },
+  ];
+
+  return (
+    <section className="border-y border-paper-200 bg-white">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-ruchi-600">{tr("Check-in", "চেক-ইন")}</p>
+          <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">{tr("Three steps to a stamp", "তিন ধাপে একটি স্ট্যাম্প")}</h2>
+          <p className="mt-2 text-ink-500">{tr("Every stamp is earned on location. No shortcuts.", "প্রতিটি স্ট্যাম্প সরাসরি স্থানে গিয়ে অর্জিত। কোনো শর্টকাট নয়।")}</p>
+        </div>
+
+        <ol className="mt-12 grid gap-6 md:grid-cols-3">
+          {steps.map((st, i) => (
+            <motion.li
+              key={st.n}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ delay: i * 0.12, duration: 0.5 }}
+              className="flex flex-col overflow-hidden rounded-3xl border border-paper-200 bg-paper"
+            >
+              <div className={`relative h-[384px] overflow-hidden px-6 pt-6 ${st.tint}`}>
+                <div aria-hidden className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/50" />
+                <div aria-hidden className="absolute -bottom-12 -left-10 h-40 w-40 rounded-full bg-white/40" />
+                <span className="absolute left-4 top-4 z-10 grid h-9 w-9 place-items-center rounded-full bg-ruchi-600 font-display text-lg font-extrabold text-white shadow-card">{st.n}</span>
+                <div className="relative">{st.scene}</div>
+              </div>
+              <div className="p-6 text-center">
+                <h3 className="flex items-center justify-center gap-2 text-xl font-extrabold"><st.icon className="h-5 w-5 text-ruchi-600" />{st.title}</h3>
+                <p className="mx-auto mt-1.5 max-w-[18rem] text-sm leading-relaxed text-ink-500">{st.desc}</p>
+              </div>
+            </motion.li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+function Destinations() {
+  const { lang, tr, t } = useI18n();
+  const [sw, setSw] = useState<SwiperType | null>(null);
+  const [edge, setEdge] = useState({ start: true, end: false });
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-ruchi-600">{tr("Destinations", "গন্তব্য")}</p>
+          <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">{tr("Where will you go first?", "প্রথমে কোথায় যাবেন?")}</h2>
+        </div>
+        <div className="flex items-center gap-2">
+          <Link href="/explore" className="mr-2 hidden items-center gap-1 text-sm font-bold text-ruchi-700 sm:inline-flex">{t("seeAll")} <ArrowRight className="h-4 w-4" /></Link>
+          <button onClick={() => sw?.slidePrev()} disabled={edge.start} aria-label="Previous" className="grid h-11 w-11 place-items-center rounded-full border border-paper-300 bg-white transition hover:border-ink disabled:opacity-35"><ChevronLeft className="h-5 w-5" /></button>
+          <button onClick={() => sw?.slideNext()} disabled={edge.end} aria-label="Next" className="grid h-11 w-11 place-items-center rounded-full bg-ruchi-600 text-white shadow-card transition hover:bg-ruchi-700 disabled:opacity-35"><ChevronRight className="h-5 w-5" /></button>
+        </div>
+      </div>
+
+      <div className="-mx-4 mt-8 overflow-hidden px-4 sm:mx-0 sm:px-0">
+      <Swiper
+        modules={[Autoplay]}
+        onSwiper={setSw}
+        onSlideChange={(s) => setEdge({ start: s.isBeginning, end: s.isEnd })}
+        autoplay={{ delay: 3500, disableOnInteraction: true, pauseOnMouseEnter: true }}
+        spaceBetween={16}
+        slidesPerView={1.35}
+        breakpoints={{ 560: { slidesPerView: 2.2 }, 900: { slidesPerView: 3.1 }, 1100: { slidesPerView: 3.6 } }}
+        className="!overflow-visible"
+      >
+        {places.map((p) => (
+          <SwiperSlide key={p.id}>
+            <Link href={`/places/${p.slug}`} className="group relative block aspect-[3/4] overflow-hidden rounded-2xl bg-ink shadow-card">
+              <Image src={p.image} alt={pick(p.name, lang)} fill sizes="320px" className="object-cover transition-transform duration-700 group-hover:scale-110" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/30" />
+              <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-md bg-black/45 px-2 py-1 text-[11px] font-bold uppercase tracking-wider text-white backdrop-blur">
+                <RarityDot r={p.rarity} />
+                {p.rarity === "legendary" ? tr("Legendary", "কিংবদন্তি") : p.rarity === "rare" ? tr("Rare", "দুর্লভ") : tr("Common", "সাধারণ")}
+              </span>
+              <div className="absolute inset-x-0 bottom-0 p-4 text-white">
+                <h3 className="font-display text-2xl font-extrabold leading-tight">{pick(p.name, lang)}</h3>
+                <p className="mt-0.5 flex items-center gap-1 text-sm text-white/85"><MapPin className="h-3.5 w-3.5" />{pick(p.location, lang)}</p>
+                <div className="mt-3 flex items-center justify-between border-t border-white/20 pt-3 text-xs font-semibold">
+                  <span className="inline-flex items-center gap-1.5"><CalendarDays className="h-3.5 w-3.5" />{pick(p.bestTime, lang)}</span>
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white text-ruchi-700 transition-transform group-hover:translate-x-0.5"><ArrowRight className="h-4 w-4" /></span>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      </div>
+    </section>
+  );
+}
+
+function Highlights() {
+  const { lang, tr } = useI18n();
+  const top = leaderboard.slice(0, 3);
+  const reel = reels[1];
+  const spot = places[5];
+  return (
+    <section className="bg-white">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-ruchi-600">{tr("Community", "কমিউনিটি")}</p>
+          <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">{tr("More than a checklist", "শুধু তালিকা নয়")}</h2>
+          <p className="mt-2 text-ink-500">{tr("Discover secret places, watch trips and race your friends.", "গোপন স্থান খুঁজুন, ভ্রমণ দেখুন, বন্ধুদের সাথে প্রতিযোগিতা করুন।")}</p>
+        </div>
+
+        <div className="mt-10 grid gap-4 md:grid-cols-3 md:grid-rows-2">
+          {/* Hidden spots */}
+          <Link href="/spots" className="group relative min-h-[280px] overflow-hidden rounded-2xl bg-ink md:col-span-2">
+            <Image src={spot.gallery[2] ?? spot.image} alt="" fill sizes="700px" className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-6 text-white">
+              <span className="inline-flex items-center gap-1.5 rounded-md bg-ruchi-600 px-2.5 py-1 text-xs font-bold uppercase tracking-wider"><Sparkles className="h-3.5 w-3.5" />{tr("Hidden spots", "গোপন স্থান")}</span>
+              <h3 className="mt-3 max-w-md text-2xl font-extrabold leading-tight sm:text-3xl">{tr("Places few people know", "যে জায়গা খুব কম মানুষ চেনে")}</h3>
+              <p className="mt-1.5 max-w-md text-white/85">{tr("Travellers share secret spots with routes. Admins review each one before it goes live.", "ভ্রমণকারীরা রুটসহ গোপন স্থান শেয়ার করেন। প্রকাশের আগে অ্যাডমিন যাচাই করেন।")}</p>
+              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold">{tr("Discover", "খুঁজে দেখুন")} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+            </div>
+          </Link>
+
+          {/* Reels */}
+          <Link href="/reels" className="group relative min-h-[320px] overflow-hidden rounded-2xl bg-ink md:row-span-2">
+            <Image src={reel.poster} alt="" fill sizes="400px" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/25" />
+            <span className="absolute left-1/2 top-1/2 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ruchi-600 shadow-lift"><Play className="h-7 w-7 fill-current" /></span>
+            <div className="absolute inset-x-0 bottom-0 p-6 text-white">
+              <span className="inline-flex items-center gap-1.5 rounded-md bg-white px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-ink"><Clapperboard className="h-3.5 w-3.5 text-ruchi-600" />{tr("Reels & posts", "রিলস ও পোস্ট")}</span>
+              <h3 className="mt-3 text-2xl font-extrabold leading-tight">{tr("Trips, told in motion", "ভ্রমণের গল্প, চলমান ছবিতে")}</h3>
+              <div className="mt-3 flex items-center gap-3 text-sm font-semibold text-white/90">
+                <Image src={reel.author.avatar} alt="" width={28} height={28} className="h-7 w-7 rounded-full object-cover" />
+                <span className="truncate">@{reel.author.username}</span>
+                <span className="ml-auto inline-flex items-center gap-1"><Heart className="h-4 w-4 fill-ruchi-500 text-ruchi-500" />{Math.round(reel.likes / 1000)}K</span>
+              </div>
+            </div>
+          </Link>
+
+          {/* Leaderboard */}
+          <Link href="/leaderboard" className="group rounded-2xl border border-paper-200 bg-paper p-6 transition-shadow hover:shadow-lift md:col-span-2">
+            <div className="flex items-center justify-between gap-3">
+              <span className="inline-flex items-center gap-1.5 rounded-md bg-ink px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-white"><Trophy className="h-3.5 w-3.5 text-gold-400" />{tr("Leaderboard", "লিডারবোর্ড")}</span>
+              <span className="inline-flex items-center gap-1.5 text-sm font-bold text-ruchi-700">{tr("See ranking", "র‍্যাংকিং দেখুন")} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+            </div>
+            <h3 className="mt-3 text-2xl font-extrabold leading-tight">{tr("Race your friends to the top", "বন্ধুদের হারিয়ে শীর্ষে উঠুন")}</h3>
+            <ul className="mt-5 grid gap-2.5 sm:grid-cols-3">
+              {top.map((u, i) => (
+                <li key={u.username} className="flex items-center gap-3 rounded-xl bg-white p-3 shadow-card">
+                  <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-full text-sm font-extrabold text-white ${["bg-gold-500", "bg-ink-400", "bg-orange-400"][i]}`}>{i + 1}</span>
+                  <Image src={u.avatar} alt="" width={36} height={36} className="h-9 w-9 rounded-full object-cover" />
+                  <span className="min-w-0">
+                    <span className="block truncate text-sm font-bold">{u.name.split(" ")[0]}</span>
+                    <span className="text-xs text-ink-500">{u.stamps} {tr("stamps", "স্ট্যাম্প")}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export function Landing() {
   const { lang, tr, t } = useI18n();
@@ -129,79 +414,9 @@ export function Landing() {
         </motion.div>
       </section>
 
-      {/* How it works */}
-      <section className="border-y border-paper-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-          <h2 className="text-3xl font-extrabold sm:text-4xl">{tr("How a check-in works", "চেক-ইন যেভাবে কাজ করে")}</h2>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {steps.map((s, i) => {
-              const [title, desc] = lang === "bn" ? s.bn : s.en;
-              return (
-                <div key={i} className="relative rounded-2xl border border-paper-200 bg-paper p-6">
-                  <span className="absolute right-5 top-4 font-display text-6xl font-extrabold text-paper-200">{i + 1}</span>
-                  <span className="grid h-11 w-11 place-items-center rounded-lg bg-ruchi-600 text-white">
-                    <s.icon className="h-5 w-5" />
-                  </span>
-                  <h3 className="mt-5 text-xl font-bold">{title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-ink-700">{desc}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Destinations carousel */}
-      <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-        <div className="flex items-end justify-between">
-          <h2 className="text-3xl font-extrabold sm:text-4xl">{tr("Where will you go first?", "প্রথমে কোথায় যাবেন?")}</h2>
-          <Link href="/explore" className="hidden items-center gap-1 text-sm font-bold text-ruchi-700 sm:flex">
-            {t("seeAll")} <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-        <Swiper
-          modules={[Autoplay, FreeMode]}
-          freeMode
-          autoplay={{ delay: 2800, disableOnInteraction: false }}
-          spaceBetween={16}
-          slidesPerView={1.25}
-          breakpoints={{ 640: { slidesPerView: 2.2 }, 1024: { slidesPerView: 3.2 } }}
-          className="!mt-8"
-        >
-          {places.map((p) => (
-            <SwiperSlide key={p.id}>
-              <Link href={`/places/${p.slug}`} className="group block overflow-hidden rounded-2xl border border-paper-200 bg-white shadow-card">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image src={p.image} alt={pick(p.name, lang)} fill sizes="400px" className="object-cover transition-transform duration-500 group-hover:scale-105" />
-                </div>
-                <div className="p-4">
-                  <h3 className="font-display text-lg font-bold">{pick(p.name, lang)}</h3>
-                  <div className="mt-1 flex items-center gap-3 text-xs font-semibold text-ink-500">
-                    <span className="flex items-center gap-1"><MapPin className="h-3.5 w-3.5" />{pick(p.location, lang)}</span>
-                    <span className="flex items-center gap-1"><CalendarDays className="h-3.5 w-3.5" />{pick(p.bestTime, lang)}</span>
-                  </div>
-                </div>
-              </Link>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </section>
-
-      {/* Features */}
-      <section className="bg-leaf-700">
-        <div className="mx-auto grid max-w-6xl gap-px px-4 py-14 sm:px-6 md:grid-cols-3 md:gap-8">
-          {features.map((f, i) => {
-            const [title, desc] = lang === "bn" ? f.bn : f.en;
-            return (
-              <div key={i} className="py-4 text-white">
-                <f.icon className="h-7 w-7 text-white/90" />
-                <h3 className="mt-4 text-xl font-bold">{title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-white/80">{desc}</p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      <HowItWorks />
+      <Destinations />
+      <Highlights />
 
       {/* CTA */}
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">

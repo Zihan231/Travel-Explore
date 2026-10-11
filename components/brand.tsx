@@ -20,8 +20,8 @@ export function Logo({ href = "/", className }: { href?: string; className?: str
   return (
     <Link href={href} className={cn("inline-flex items-center gap-2.5", className)} aria-label="Ruchi Tour Story">
       <span className="wordmark text-[34px] leading-none">রুচি</span>
-      <span className="h-7 w-px bg-paper-300" />
-      <span className="flex flex-col leading-none">
+      <span className="h-7 w-px bg-paper-300 max-[350px]:hidden" />
+      <span className="flex flex-col whitespace-nowrap leading-none max-[350px]:hidden">
         <span className="font-display text-[15px] font-bold text-ink">{t("appName")}</span>
         <span className="mt-0.5 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-500">
           <SquareMark className="h-2.5 w-2.5" /> Square

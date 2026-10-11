@@ -130,25 +130,26 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const moreItems = [...nav.filter((i) => !tabsByRole[role].includes(i.href)), ...(isGuest ? [] : isAdmin ? extra.filter((i) => i.href === "/settings") : extra)];
   const [moreOpen, setMoreOpen] = useState(false);
 
-  const [scrolled, setScrolled] = useState(false);
-  const [short, setShort] = useState(false);
+  const [hideTop, setHideTop] = useState(false);
 
   useEffect(() => {
+    let lastY = window.scrollY;
     let raf = 0;
     const update = () => {
       raf = 0;
-      setScrolled(window.scrollY > 24);
-      setShort(document.documentElement.scrollHeight <= window.innerHeight + 24);
+      const y = window.scrollY;
+      const delta = y - lastY;
+      if (y < 80) setHideTop(false);
+      else if (delta > 10) setHideTop(true);
+      else if (delta < -10) setHideTop(false);
+      if (Math.abs(delta) > 10 || y < 80) lastY = y;
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
     };
-    update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
   }, [pathname]);
@@ -157,8 +158,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   const isReels = pathname.startsWith("/reels");
   const immersive = pathname.startsWith("/places/");
-  const showBottom = !immersive && (scrolled || short || isReels);
-  const hideTop = scrolled || isReels;
+  const showBottom = !immersive;
+  const topHidden = hideTop || isReels;
 
   const active = (href: string) => (href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/"));
   const isProtected = protectedPaths.some((x) => pathname.startsWith(x));
@@ -174,7 +175,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-dvh bg-paper">
       {/* Desktop top navigation (all roles) */}
-      <header className="sticky top-0 z-40 hidden border-b border-paper-200 bg-white/95 backdrop-blur lg:block">
+      <header className={cn("sticky top-0 z-40 hidden border-b border-paper-200 bg-white/95 backdrop-blur transition-transform duration-300 lg:block", hideTop && "-translate-y-full")}>
         <div className="mx-auto flex h-16 max-w-[1320px] items-center gap-4 px-4 xl:px-6 2xl:gap-8">
           <Logo href="/" className="shrink-0" />
           <nav className="no-scrollbar flex min-w-0 flex-1 items-center gap-0.5 overflow-x-auto" aria-label="Main">
@@ -231,13 +232,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </header>
 
       {/* Mobile top bar */}
-      <header className={cn("sticky top-0 z-40 border-b border-paper-200 bg-white transition-transform duration-300 lg:hidden", hideTop && "-translate-y-full")}>
-        <div className="flex items-center justify-between px-4 py-2.5">
-          <Logo href="/" />
-          <div className="flex items-center gap-1.5">
-            <LangToggle />
+      <header className={cn("sticky top-0 z-40 border-b border-paper-200 bg-white transition-transform duration-300 lg:hidden", topHidden && "-translate-y-full")}>
+        <div className="flex items-center justify-between gap-2 px-3 py-2.5">
+          <Logo href="/" className="min-w-0" />
+          <div className="flex shrink-0 items-center gap-1.5">
+            <LangToggle compact />
             {isGuest ? (
-              <Link href="/login" className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-ruchi-600 px-3 text-sm font-semibold text-white">
+              <Link href="/login" className="inline-flex h-9 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg bg-ruchi-600 px-3 text-sm font-semibold text-white">
                 <LogIn className="h-4 w-4" /> {tr("Log in", "লগ ইন")}
               </Link>
             ) : (
@@ -277,13 +278,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </main>
 
       {/* Mobile create button */}
-      {!isGuest && !immersive && (
+      {!isGuest && showBottom && (
         <Link
           href="/create"
           aria-label={createLabel}
           className={cn(
             "fixed right-4 z-40 grid h-12 w-12 place-items-center rounded-xl bg-ruchi-600 text-white shadow-lift transition-all duration-300 active:scale-95 lg:hidden",
-            showBottom ? "bottom-[76px]" : "bottom-5"
+            "bottom-[76px]"
           )}
         >
           <Plus className="h-6 w-6" />
