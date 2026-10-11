@@ -127,6 +127,7 @@ type Ctx = {
   lang: Lang;
   setLang: (l: Lang) => void;
   t: (key: keyof typeof dict) => string;
+  tr: (en: string, bn: string) => string;
 };
 
 const I18nContext = createContext<Ctx | null>(null);
@@ -148,10 +149,11 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   };
 
   const t = (key: keyof typeof dict) => dict[key]?.[lang] ?? String(key);
+  const tr = (en: string, bn: string) => (lang === "bn" ? bn : en);
 
   return (
-    <I18nContext.Provider value={{ lang, setLang, t }}>
-      <div className={lang === "bn" ? "font-bangla" : ""}>{children}</div>
+    <I18nContext.Provider value={{ lang, setLang, t, tr }}>
+      {children}
     </I18nContext.Provider>
   );
 }

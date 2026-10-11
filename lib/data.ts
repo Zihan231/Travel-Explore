@@ -1,0 +1,434 @@
+import type {
+  Place,
+  Post,
+  Reel,
+  LeaderUser,
+  AppNotification,
+  Mission,
+  Author,
+} from"./types";
+
+const img = (id: string, w = 800) =>
+`https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+
+export const currentUser = {
+  id: "u1",
+  name: "Rafiq Ahmed",
+  username: "rafiq",
+  avatar: "https://i.pravatar.cc/150?img=12",
+  level: { en: "Curious Explorer", bn: "কৌতূহলী এক্সপ্লোরার" },
+  levelNum: 3,
+  xp: 1240,
+  xpToNext: 2000,
+  streak: 6,
+  bio: {
+    en: "Chasing sunrises across Bangladesh",
+    bn: "বাংলাদেশ জুড়ে সূর্যোদয়ের পেছনে ছুটছি",
+  },
+};
+
+export const places: Place[] = [
+  {
+    id: "p1",
+    slug: "coxs-bazar",
+    name: { en: "Cox's Bazar", bn: "কক্সবাজার" },
+    location: { en: "Chattogram", bn: "চট্টগ্রাম" },
+    division: "Chattogram",
+    category: "beach",
+    rarity: "common",
+    image: img("photo-1587222318667-31212ce2828d"),
+    gallery: [img("photo-1587222318667-31212ce2828d"), img("photo-1665651147145-664ebda525e7"), img("photo-1608958435020-e8a7109ba809"), img("photo-1609501285437-4eb001f82684")],
+    why: {
+      en: "The world's longest natural sea beach — 120km of golden sand, endless waves, and unreal sunsets.",
+      bn: "বিশ্বের দীর্ঘতম প্রাকৃতিক সমুদ্র সৈকত — ১২০ কিমি সোনালি বালি, অবিরাম ঢেউ ও অসাধারণ সূর্যাস্ত।",
+    },
+    bestTime: { en: "Nov – Feb", bn: "নভে – ফেব্রু" },
+    budget: "mid",
+    mission: [
+      { en: "Watch sunset at Laboni Beach", bn: "লাবনী বিচে সূর্যাস্ত দেখুন" },
+      { en: "Try fresh grilled seafood", bn: "টাটকা গ্রিলড সামুদ্রিক খাবার খান" },
+      { en: "Find a Burmese market stall", bn: "একটি বার্মিজ মার্কেট খুঁজুন" },
+    ],
+    howToReach: [
+      { from: { en: "Dhaka", bn: "ঢাকা" }, mode: { en: "AC Bus (Green Line)", bn: "এসি বাস (গ্রীন লাইন)" }, cost: { en: "৳1800", bn: "৳১৮০০" }, duration: { en: "10 hrs", bn: "১০ ঘণ্টা" } },
+      { from: { en: "Chattogram", bn: "চট্টগ্রাম" }, mode: { en: "Local bus", bn: "লোকাল বাস" }, cost: { en: "৳400", bn: "৳৪০০" }, duration: { en: "4 hrs", bn: "৪ ঘণ্টা" } },
+    ],
+    tips: [
+      { en: "Avoid weekends — beaches get crowded.", bn: "সাপ্তাহিক ছুটি এড়িয়ে চলুন — বিচ ভিড় হয়।" },
+      { en: "Himchari waterfall is 30 min away.", bn: "হিমছড়ি ঝর্ণা ৩০ মিনিট দূরে।" },
+    ],
+    coords: { x: 72, y: 82 },
+    lat: 21.4272,
+    lng: 92.0058,
+    visitors: 15400,
+    collected: true,
+  },
+  {
+    id: "p2",
+    slug: "sylhet",
+    name: { en: "Sylhet", bn: "সিলেট" },
+    location: { en: "Sylhet Division", bn: "সিলেট বিভাগ" },
+    division: "Sylhet",
+    category: "nature",
+    rarity: "common",
+    image: img("photo-1706444326115-6a659b5cfda5"),
+    gallery: [img("photo-1706444326115-6a659b5cfda5"), img("photo-1724257288409-dd6e1de5c20d"), img("photo-1671576467966-c6279438f63f")],
+    why: {
+      en: "Rolling tea gardens, crystal rivers, and the mystic shrines of a thousand hills.",
+      bn: "ঢেউ খেলানো চা বাগান, স্বচ্ছ নদী আর হাজার টিলার রহস্যময় মাজার।",
+    },
+    bestTime: { en: "Oct – Mar", bn: "অক্টো – মার্চ" },
+    budget: "budget",
+    mission: [
+      { en: "Walk through a tea estate", bn: "একটি চা বাগানে হাঁটুন" },
+      { en: "Taste 7-layer tea", bn: "৭ রঙের চা খান" },
+    ],
+    howToReach: [
+      { from: { en: "Dhaka", bn: "ঢাকা" }, mode: { en: "Train (Parabat Express)", bn: "ট্রেন (পারাবত এক্সপ্রেস)" }, cost: { en: "৳320", bn: "৳৩২০" }, duration: { en: "6 hrs", bn: "৬ ঘণ্টা" } },
+    ],
+    tips: [{ en: "Ratargul swamp forest is best by boat.", bn: "রাতারগুল জলাবন নৌকায় সবচেয়ে সুন্দর।" }],
+    coords: { x: 74, y: 30 },
+    lat: 24.8949,
+    lng: 91.8687,
+    visitors: 9800,
+    collected: true,
+  },
+  {
+    id: "p3",
+    slug: "saint-martin",
+    name: { en: "Saint Martin's Island", bn: "সেন্ট মার্টিন" },
+    location: { en: "Cox's Bazar", bn: "কক্সবাজার" },
+    division: "Chattogram",
+    category: "beach",
+    rarity: "legendary",
+    image: img("photo-1714026983557-0432ec9f00e5"),
+    gallery: [img("photo-1714026983557-0432ec9f00e5"), img("photo-1585501296541-c2af5630245f"), img("photo-1684689799775-e77a87667188")],
+    why: {
+      en: "The only coral island of Bangladesh. Turquoise water, coconut palms, and a sky full of stars.",
+      bn: "বাংলাদেশের একমাত্র প্রবাল দ্বীপ। ফিরোজা জল, নারকেল গাছ আর তারায় ভরা আকাশ।",
+    },
+    bestTime: { en: "Nov – Feb", bn: "নভে – ফেব্রু" },
+    budget: "premium",
+    mission: [
+      { en: "Snorkel over the coral reef", bn: "প্রবাল প্রাচীরে স্নরকেল করুন" },
+      { en: "Stargaze from the beach", bn: "সৈকত থেকে তারা দেখুন" },
+      { en: "Cycle to Chera Dwip", bn: "ছেঁড়া দ্বীপে সাইকেল চালান" },
+    ],
+    howToReach: [
+      { from: { en: "Teknaf", bn: "টেকনাফ" }, mode: { en: "Ferry (Keari Sindbad)", bn: "ফেরি (কেয়ারি সিন্দবাদ)" }, cost: { en: "৳1000", bn: "৳১০০০" }, duration: { en: "2.5 hrs", bn: "২.৫ ঘণ্টা" } },
+    ],
+    tips: [{ en: "Book overnight stay in advance in peak season.", bn: "পিক সিজনে আগে থেকে রাত্রিযাপন বুক করুন।" }],
+    coords: { x: 73, y: 93 },
+    lat: 20.6274,
+    lng: 92.3233,
+    visitors: 6200,
+    collected: false,
+  },
+  {
+    id: "p4",
+    slug: "sajek-valley",
+    name: { en: "Sajek Valley", bn: "সাজেক ভ্যালি" },
+    location: { en: "Rangamati", bn: "রাঙামাটি" },
+    division: "Chattogram",
+    category: "hill",
+    rarity: "rare",
+    image: img("photo-1658383895221-173f07c6a9d0"),
+    gallery: [img("photo-1658383895221-173f07c6a9d0"), img("photo-1639330484340-38edb3d8ee9d"), img("photo-1578128178799-ffbb862243c0")],
+    why: {
+      en: "The kingdom of clouds. Wake above a sea of fog with hills rolling to the horizon.",
+      bn: "মেঘের রাজ্য। পাহাড়ের ঢেউয়ের ওপর কুয়াশার সমুদ্রে জেগে উঠুন।",
+    },
+    bestTime: { en: "Jun – Sep", bn: "জুন – সেপ্ট" },
+    budget: "mid",
+    mission: [
+      { en: "Catch sunrise at Konglak Hill", bn: "কংলাক পাহাড়ে সূর্যোদয় দেখুন" },
+      { en: "Stay in a tribal cottage", bn: "আদিবাসী কটেজে থাকুন" },
+    ],
+    howToReach: [
+      { from: { en: "Khagrachari", bn: "খাগড়াছড়ি" }, mode: { en: "Chander Gari (Jeep)", bn: "চাঁদের গাড়ি (জিপ)" }, cost: { en: "৳8000/group", bn: "৳৮০০০/দল" }, duration: { en: "2.5 hrs", bn: "২.৫ ঘণ্টা" } },
+    ],
+    tips: [{ en: "Travel in army-escorted convoy times.", bn: "সেনা এসকর্ট কনভয়ের সময়ে ভ্রমণ করুন।" }],
+    coords: { x: 80, y: 60 },
+    lat: 23.3819,
+    lng: 92.2938,
+    visitors: 7100,
+    collected: true,
+  },
+  {
+    id: "p5",
+    slug: "sundarbans",
+    name: { en: "Sundarbans", bn: "সুন্দরবন" },
+    location: { en: "Khulna", bn: "খুলনা" },
+    division: "Khulna",
+    category: "forest",
+    rarity: "legendary",
+    image: img("photo-1549300461-11c5b94e8855"),
+    gallery: [img("photo-1549300461-11c5b94e8855"), img("photo-1607441078533-77ba814b1e5d"), img("photo-1540018177157-957400dbd08a")],
+    why: {
+      en: "The largest mangrove forest on Earth and home of the Royal Bengal Tiger. A UNESCO wonder.",
+      bn: "পৃথিবীর বৃহত্তম ম্যানগ্রোভ বন ও রয়েল বেঙ্গল টাইগারের আবাস। ইউনেস্কো বিস্ময়।",
+    },
+    bestTime: { en: "Dec – Feb", bn: "ডিসে – ফেব্রু" },
+    budget: "premium",
+    mission: [
+      { en: "Spot wildlife on a boat safari", bn: "নৌকা সাফারিতে বন্যপ্রাণী দেখুন" },
+      { en: "Visit Karamjal watchtower", bn: "করমজল ওয়াচটাওয়ার দেখুন" },
+    ],
+    howToReach: [
+      { from: { en: "Khulna", bn: "খুলনা" }, mode: { en: "Launch tour (3D/2N)", bn: "লঞ্চ ট্যুর (৩দিন/২রাত)" }, cost: { en: "৳9000", bn: "৳৯০০০" }, duration: { en: "Overnight", bn: "রাত্রিযাপন" } },
+    ],
+    tips: [{ en: "Only travel with licensed guides.", bn: "শুধুমাত্র লাইসেন্সপ্রাপ্ত গাইডের সাথে ভ্রমণ করুন।" }],
+    coords: { x: 45, y: 82 },
+    lat: 21.9497,
+    lng: 89.1833,
+    visitors: 4300,
+    collected: false,
+  },
+  {
+    id: "p6",
+    slug: "bandarban",
+    name: { en: "Bandarban", bn: "বান্দরবান" },
+    location: { en: "Chattogram Hill Tracts", bn: "পার্বত্য চট্টগ্রাম" },
+    division: "Chattogram",
+    category: "hill",
+    rarity: "rare",
+    image: img("photo-1715922808700-f707baae4bb5"),
+    gallery: [img("photo-1715922808700-f707baae4bb5"), img("photo-1585123388867-3bfe6dd4bdbf"), img("photo-1730877870263-9df7b1c6c239")],
+    why: {
+      en: "Home to Bangladesh's highest peaks, hidden waterfalls, and the serene Nilgiri clouds.",
+      bn: "বাংলাদেশের সর্বোচ্চ চূড়া, লুকানো ঝর্ণা আর নীলগিরির শান্ত মেঘের আবাস।",
+    },
+    bestTime: { en: "Oct – Mar", bn: "অক্টো – মার্চ" },
+    budget: "mid",
+    mission: [
+      { en: "Climb to Nilgiri viewpoint", bn: "নীলগিরি ভিউপয়েন্টে উঠুন" },
+      { en: "Boat through Nilachal", bn: "নীলাচলে নৌকা ভ্রমণ করুন" },
+    ],
+    howToReach: [
+      { from: { en: "Chattogram", bn: "চট্টগ্রাম" }, mode: { en: "Bus", bn: "বাস" }, cost: { en: "৳250", bn: "৳২৫০" }, duration: { en: "3 hrs", bn: "৩ ঘণ্টা" } },
+    ],
+    tips: [{ en: "Golden Temple is a must-visit.", bn: "স্বর্ণ মন্দির অবশ্যই দেখবেন।" }],
+    coords: { x: 79, y: 68 },
+    lat: 22.1953,
+    lng: 92.2184,
+    visitors: 5600,
+    collected: false,
+  },
+  {
+    id: "p7",
+    slug: "panam-city",
+    name: { en: "Panam City", bn: "পানাম নগর" },
+    location: { en: "Sonargaon, Narayanganj", bn: "সোনারগাঁও, নারায়ণগঞ্জ" },
+    division: "Dhaka",
+    category: "heritage",
+    rarity: "common",
+    image: img("photo-1604993497451-eed6eb271a9c"),
+    gallery: [img("photo-1604993497451-eed6eb271a9c"), img("photo-1718445270583-4ddae78adb1b"), img("photo-1646498312885-1cdf12ffe9a2")],
+    why: {
+      en: "Walk the narrow lanes of a 19th-century city frozen in time — grand facades, timeless charm.",
+      bn: "উনবিংশ শতাব্দীর থমকে থাকা শহরের সরু গলিতে হাঁটুন — রাজকীয় স্থাপত্য, কালজয়ী মুগ্ধতা।",
+    },
+    bestTime: { en: "Nov – Feb", bn: "নভে – ফেব্রু" },
+    budget: "budget",
+    mission: [
+      { en: "Explore the Panam ruins", bn: "পানাম ধ্বংসাবশেষ ঘুরে দেখুন" },
+      { en: "Try local Sonargaon sweets", bn: "সোনারগাঁওয়ের মিষ্টি খান" },
+    ],
+    howToReach: [
+      { from: { en: "Dhaka", bn: "ঢাকা" }, mode: { en: "Bus to Mograpara", bn: "মোগড়াপাড়া বাস" }, cost: { en: "৳60", bn: "৳৬০" }, duration: { en: "1.5 hrs", bn: "১.৫ ঘণ্টা" } },
+    ],
+    tips: [{ en: "Combine with the Folk Art Museum.", bn: "লোকশিল্প জাদুঘরের সাথে ঘুরুন।" }],
+    coords: { x: 58, y: 48 },
+    lat: 23.6476,
+    lng: 90.6008,
+    visitors: 8700,
+    collected: true,
+  },
+  {
+    id: "p8",
+    slug: "ratargul",
+    name: { en: "Ratargul Swamp Forest", bn: "রাতারগুল জলাবন" },
+    location: { en: "Sylhet", bn: "সিলেট" },
+    division: "Sylhet",
+    category: "forest",
+    rarity: "rare",
+    image: img("photo-1723997014511-6cb608841628"),
+    gallery: [img("photo-1723997014511-6cb608841628"), img("photo-1723985465692-4dbe9cc85268"), img("photo-1650895421996-b436f5c569f4")],
+    why: {
+      en: "The only freshwater swamp forest in Bangladesh — paddle a canoe through submerged trees.",
+      bn: "বাংলাদেশের একমাত্র মিঠা পানির জলাবন — ডুবে থাকা গাছের ভেতর ক্যানো চালান।",
+    },
+    bestTime: { en: "Jun – Sep", bn: "জুন – সেপ্ট" },
+    budget: "budget",
+    mission: [{ en: "Canoe through the flooded forest", bn: "প্লাবিত বনে ক্যানো চালান" }],
+    howToReach: [
+      { from: { en: "Sylhet city", bn: "সিলেট শহর" }, mode: { en: "CNG auto", bn: "সিএনজি" }, cost: { en: "৳800", bn: "৳৮০০" }, duration: { en: "1 hr", bn: "১ ঘণ্টা" } },
+    ],
+    tips: [{ en: "Go during monsoon for full water.", bn: "পূর্ণ জলের জন্য বর্ষায় যান।" }],
+    coords: { x: 76, y: 26 },
+    lat: 25.0012,
+    lng: 91.9631,
+    visitors: 3900,
+    collected: false,
+  },
+];
+
+const authors: Author[] = [
+  { id: "a1", name: "Nusrat Jahan", username: "nusrat.explores", avatar: "https://i.pravatar.cc/150?img=45", level: { en: "Pathfinder", bn: "পথপ্রদর্শক" }, verified: true },
+  { id: "a2", name: "Tanvir Hasan", username: "tanvir.trails", avatar: "https://i.pravatar.cc/150?img=33", level: { en: "Adventurer", bn: "অভিযাত্রী" } },
+  { id: "a3", name: "Mim Akter", username: "mim.wanders", avatar: "https://i.pravatar.cc/150?img=47", level: { en: "Legend", bn: "কিংবদন্তি" }, verified: true },
+  { id: "a4", name: "Sakib Khan", username: "sakib.roams", avatar: "https://i.pravatar.cc/150?img=52", level: { en: "Explorer", bn: "এক্সপ্লোরার" } },
+];
+
+export const posts: Post[] = [
+  {
+    id: "post1",
+    author: authors[0],
+    place: { en: "Sajek Valley", bn: "সাজেক ভ্যালি" },
+    type: "post",
+    text: {
+      en: "Woke up above the clouds this morning Sajek never disappoints. The whole valley was a sea of white until the sun broke through. Worth every bumpy hour on the Chander Gari!",
+      bn: "আজ সকালে মেঘের ওপরে ঘুম ভাঙলো সাজেক কখনো হতাশ করে না। সূর্য ওঠার আগ পর্যন্ত পুরো উপত্যকা ছিল সাদা মেঘের সমুদ্র।",
+    },
+    media: [{ type: "image", url: img("photo-1658383895221-173f07c6a9d0", 900) }],
+    createdAt: new Date(Date.now() - 2 * 3600_000).toISOString(),
+    reactions: { love: 234, wow: 89, fire: 45, clap: 12, sad: 0 },
+    myReaction: "love",
+    comments: 42,
+    shares: 18,
+  },
+  {
+    id: "post2",
+    author: authors[1],
+    place: { en: "Cox's Bazar", bn: "কক্সবাজার" },
+    type: "post",
+    text: {
+      en: "Golden hour at Laboni Beach hits different Grabbed some grilled rupchanda right off the shore. If you're here, skip the touristy spots and walk 20 mins south — way quieter.",
+      bn: "লাবনী বিচে গোল্ডেন আওয়ার অন্যরকম তীরেই গ্রিলড রূপচাঁদা খেলাম। এখানে এলে টুরিস্ট স্পট এড়িয়ে ২০ মিনিট দক্ষিণে হাঁটুন।",
+    },
+    media: [
+      { type: "image", url: img("photo-1587222318667-31212ce2828d", 900) },
+      { type: "image", url: img("photo-1665651147145-664ebda525e7", 900) },
+    ],
+    createdAt: new Date(Date.now() - 6 * 3600_000).toISOString(),
+    reactions: { love: 512, wow: 120, fire: 203, clap: 34, sad: 0 },
+    myReaction: null,
+    comments: 88,
+    shares: 56,
+  },
+  {
+    id: "spot1",
+    author: authors[2],
+    type: "spot",
+    status: "approved",
+    place: { en: "Hidden: Debotakhum", bn: "গোপন: দেবতাখুম" },
+    text: {
+      en: "Found this emerald canyon near Bandarban that almost no one knows about You raft through narrow turquoise waters between towering cliffs. Absolute hidden gem — pack water shoes!",
+      bn: "বান্দরবানের কাছে এই পান্না রঙের ক্যানিয়ন খুঁজে পেলাম যা প্রায় কেউ জানে না উঁচু পাহাড়ের মাঝে ফিরোজা জলে ভেলায় যেতে হয়।",
+    },
+    media: [{ type: "image", url: img("photo-1730877870263-9df7b1c6c239", 900) }],
+    createdAt: new Date(Date.now() - 20 * 3600_000).toISOString(),
+    reactions: { love: 678, wow: 341, fire: 156, clap: 88, sad: 0 },
+    myReaction: "wow",
+    comments: 134,
+    shares: 210,
+    route: [
+      { from: { en: "Bandarban town", bn: "বান্দরবান শহর" }, mode: { en: "Bus to Roanchhari", bn: "রোয়াংছড়ি বাস" }, cost: { en: "৳120", bn: "৳১২০" }, duration: { en: "1.5 hrs", bn: "১.৫ ঘণ্টা" } },
+      { from: { en: "Roanchhari", bn: "রোয়াংছড়ি" }, mode: { en: "Trek + bamboo raft", bn: "ট্রেক + বাঁশের ভেলা" }, cost: { en: "৳500", bn: "৳৫০০" }, duration: { en: "2 hrs", bn: "২ ঘণ্টা" } },
+    ],
+  },
+  {
+    id: "post3",
+    author: authors[3],
+    place: { en: "Sylhet", bn: "সিলেট" },
+    type: "post",
+    text: {
+      en: "Seven layers of tea, one happy soul Sreemangal is the tea capital for a reason. Every garden looks like a green ocean.",
+      bn: "সাত রঙের চা, এক তৃপ্ত মন শ্রীমঙ্গল চায়ের রাজধানী এমনি এমনি নয়। প্রতিটি বাগান সবুজ সমুদ্রের মতো।",
+    },
+    media: [{ type: "image", url: img("photo-1706444326115-6a659b5cfda5", 900) }],
+    createdAt: new Date(Date.now() - 30 * 3600_000).toISOString(),
+    reactions: { love: 189, wow: 42, fire: 28, clap: 19, sad: 0 },
+    myReaction: null,
+    comments: 23,
+    shares: 9,
+  },
+];
+
+export const pendingSpots: Post[] = [
+  {
+    id: "spot2",
+    author: authors[1],
+    type: "spot",
+    status: "pending",
+    place: { en: "Hidden: Amiakhum Waterfall", bn: "গোপন: আমিয়াখুম জলপ্রপাত" },
+    text: {
+      en: "The most remote waterfall I've ever reached. 3 days of trekking deep into Thanchi. Life-changing.",
+      bn: "এ পর্যন্ত পৌঁছানো সবচেয়ে দুর্গম জলপ্রপাত। থানচির গভীরে ৩ দিনের ট্রেক।",
+    },
+    media: [{ type: "image", url: img("photo-1730877870263-9df7b1c6c239", 900) }],
+    createdAt: new Date(Date.now() - 5 * 3600_000).toISOString(),
+    reactions: { love: 0, wow: 0, fire: 0, clap: 0, sad: 0 },
+    comments: 0,
+    shares: 0,
+  },
+  {
+    id: "spot3",
+    author: authors[3],
+    type: "spot",
+    status: "pending",
+    place: { en: "Hidden: Nikli Haor", bn: "গোপন: নিকলী হাওর" },
+    text: {
+      en: "Endless water in every direction during monsoon. The road through the haor feels like driving on the sea.",
+      bn: "বর্ষায় চারদিকে অসীম জল। হাওরের মাঝের রাস্তা যেন সমুদ্রের ওপর দিয়ে চলা।",
+    },
+    media: [{ type: "image", url: img("photo-1723985465692-4dbe9cc85268", 900) }],
+    createdAt: new Date(Date.now() - 10 * 3600_000).toISOString(),
+    reactions: { love: 0, wow: 0, fire: 0, clap: 0, sad: 0 },
+    comments: 0,
+    shares: 0,
+  },
+];
+
+export const reels: Reel[] = [
+  { id: "r1", author: authors[0], place: { en: "Sajek Valley", bn: "সাজেক ভ্যালি" }, caption: { en: "Chasing clouds at 1800ft", bn: "১৮০০ ফুটে মেঘ ধাওয়া" }, poster: img("photo-1658383895221-173f07c6a9d0", 600), likes: 12400, comments: 342, shares: 890, music: "Original audio — nusrat.explores" },
+  { id: "r2", author: authors[2], place: { en: "Saint Martin", bn: "সেন্ট মার্টিন" }, caption: { en: "Island life hits different", bn: "দ্বীপ জীবন অন্যরকম" }, poster: img("photo-1714026983557-0432ec9f00e5", 600), likes: 28900, comments: 1203, shares: 3400, music: "Shada Shada Kala Kala" },
+  { id: "r3", author: authors[1], place: { en: "Cox's Bazar", bn: "কক্সবাজার" }, caption: { en: "Longest beach, longest sunset", bn: "দীর্ঘতম বিচ, দীর্ঘতম সূর্যাস্ত" }, poster: img("photo-1587222318667-31212ce2828d", 600), likes: 18700, comments: 567, shares: 1200, music: "Original audio — tanvir.trails" },
+  { id: "r4", author: authors[3], place: { en: "Sylhet", bn: "সিলেট" }, caption: { en: "Tea garden mornings", bn: "চা বাগানের সকাল" }, poster: img("photo-1706444326115-6a659b5cfda5", 600), likes: 9800, comments: 234, shares: 456, music: "Liluan — Coke Studio Bangla" },
+];
+
+export const leaderboard: LeaderUser[] = [
+  { rank: 1, name: "Mim Akter", username: "mim.wanders", avatar: "https://i.pravatar.cc/150?img=47", stamps: 18, points: 9840, level: { en: "Legend", bn: "কিংবদন্তি" }, trend: "same" },
+  { rank: 2, name: "Nusrat Jahan", username: "nusrat.explores", avatar: "https://i.pravatar.cc/150?img=45", stamps: 16, points: 8720, level: { en: "Pathfinder", bn: "পথপ্রদর্শক" }, trend: "up" },
+  { rank: 3, name: "Arif Billah", username: "arif.onroad", avatar: "https://i.pravatar.cc/150?img=59", stamps: 15, points: 8100, level: { en: "Pathfinder", bn: "পথপ্রদর্শক" }, trend: "down" },
+  { rank: 4, name: "Tanvir Hasan", username: "tanvir.trails", avatar: "https://i.pravatar.cc/150?img=33", stamps: 12, points: 6540, level: { en: "Adventurer", bn: "অভিযাত্রী" }, trend: "up" },
+  { rank: 5, name: "Sadia Islam", username: "sadia.journeys", avatar: "https://i.pravatar.cc/150?img=44", stamps: 11, points: 6200, level: { en: "Adventurer", bn: "অভিযাত্রী" }, trend: "same" },
+  { rank: 6, name: "Rafiq Ahmed", username: "rafiq", avatar: "https://i.pravatar.cc/150?img=12", stamps: 5, points: 1240, level: { en: "Curious Explorer", bn: "কৌতূহলী এক্সপ্লোরার" }, trend: "up" },
+];
+
+export const notifications: AppNotification[] = [
+  { id: "n1", type: "reaction", actor: "Nusrat Jahan", avatar: "https://i.pravatar.cc/150?img=45", text: { en: "reacted to your Cox's Bazar post", bn: "আপনার কক্সবাজার পোস্টে দিয়েছে" }, time: new Date(Date.now() - 20 * 60000).toISOString(), read: false },
+  { id: "n2", type: "approval", text: { en: "Your hidden spot 'Debotakhum' was approved!", bn: "আপনার গোপন স্থান 'দেবতাখুম' অনুমোদিত হয়েছে!" }, time: new Date(Date.now() - 2 * 3600_000).toISOString(), read: false },
+  { id: "n3", type: "badge", text: { en: "You earned the 'Hill Conqueror' badge", bn: "আপনি 'পাহাড় জয়ী' ব্যাজ অর্জন করেছেন" }, time: new Date(Date.now() - 8 * 3600_000).toISOString(), read: true },
+  { id: "n4", type: "comment", actor: "Sakib Khan", avatar: "https://i.pravatar.cc/150?img=52", text: { en: "commented on your Sajek reel", bn: "আপনার সাজেক রিলে মন্তব্য করেছে" }, time: new Date(Date.now() - 26 * 3600_000).toISOString(), read: true },
+  { id: "n5", type: "mission", text: { en: "New seasonal mission: Monsoon Explorer 2026", bn: "নতুন মৌসুমি মিশন: মনসুন এক্সপ্লোরার ২০২৬" }, time: new Date(Date.now() - 48 * 3600_000).toISOString(), read: true },
+];
+
+export const missions: Mission[] = [
+  { id: "m1", title: { en: "Bangladesh Discoveries", bn: "বাংলাদেশ আবিষ্কার" }, desc: { en: "Visit 10 destinations across the country", bn: "দেশজুড়ে ১০টি গন্তব্য ভ্রমণ করুন" }, target: 10, progress: 5, reward: { en: "Explorer badge", bn: "এক্সপ্লোরার ব্যাজ" } },
+  { id: "m2", title: { en: "Monsoon Explorer 2026", bn: "মনসুন এক্সপ্লোরার ২০২৬" }, desc: { en: "Visit 5 waterfalls this rainy season", bn: "এই বর্ষায় ৫টি জলপ্রপাত দেখুন" }, target: 5, progress: 2, reward: { en: "Seasonal holographic stamp", bn: "মৌসুমি হলোগ্রাফিক স্ট্যাম্প" }, season: true },
+  { id: "m3", title: { en: "Coastal Soul", bn: "উপকূলের আত্মা" }, desc: { en: "Check in at 3 beaches", bn: "৩টি সৈকতে চেক-ইন করুন" }, target: 3, progress: 1, reward: { en: "Beach Lover badge", bn: "বিচ লাভার ব্যাজ" } },
+];
+
+export const categories: { id: string; label: { en: string; bn: string }; icon: string }[] = [
+  { id: "all", label: { en: "All", bn: "সব" }, icon: "Compass" },
+  { id: "beach", label: { en: "Beaches", bn: "সৈকত" }, icon: "Waves" },
+  { id: "hill", label: { en: "Hills", bn: "পাহাড়" }, icon: "Mountain" },
+  { id: "nature", label: { en: "Nature", bn: "প্রকৃতি" }, icon: "Leaf" },
+  { id: "forest", label: { en: "Forests", bn: "বন" }, icon: "Trees" },
+  { id: "heritage", label: { en: "Heritage", bn: "ঐতিহ্য" }, icon: "Landmark" },
+];
+
+export function getPlace(slug: string) {
+  return places.find((p) => p.slug === slug);
+}

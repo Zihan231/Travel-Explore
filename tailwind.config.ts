@@ -1,7 +1,6 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  darkMode: "class",
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,67 +8,58 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Bangladesh nature palette
-        forest: {
-          50: "#f0f7f1",
-          100: "#dcebde",
-          200: "#bbd7c0",
-          300: "#8fbb98",
-          400: "#5e986b",
-          500: "#3f7c4d",
-          600: "#2d623b",
-          700: "#254f30",
-          800: "#1f3f28",
-          900: "#1a3422",
-          950: "#0d1d12",
+        // Ruchi red
+        ruchi: {
+          50: "#fef3f2",
+          100: "#fde4e2",
+          200: "#fbcdc9",
+          300: "#f7a8a2",
+          400: "#ef6f68",
+          500: "#e2392f",
+          600: "#d1181f",
+          700: "#ae1219",
+          800: "#8d1317",
+          900: "#5f0c10",
         },
-        amber: {
-          50: "#fff9ed",
-          100: "#fff1d4",
-          200: "#ffdfa8",
-          300: "#ffc770",
-          400: "#ffa436",
-          500: "#ff880f",
-          600: "#f06d05",
-          700: "#c75107",
-          800: "#9e400e",
-          900: "#7f370f",
+        // Square green
+        leaf: {
+          50: "#f2f9f1",
+          100: "#e0f1de",
+          200: "#c2e3be",
+          300: "#96cd91",
+          400: "#62b25c",
+          500: "#3d9a3f",
+          600: "#2c8236",
+          700: "#24672c",
+          800: "#1e5025",
+          900: "#173f1e",
         },
-        sand: {
-          50: "#fdfcf8",
-          100: "#faf6ec",
-          200: "#f4ecd4",
+        gold: {
+          100: "#fbf0d0",
+          400: "#e0b341",
+          500: "#c99a2e",
+          600: "#a67a1d",
+        },
+        paper: {
+          DEFAULT: "#faf7f2",
+          100: "#f3eee5",
+          200: "#e7e0d2",
+          300: "#d4cbb8",
+        },
+        ink: {
+          DEFAULT: "#1c1917",
+          700: "#44403c",
+          500: "#78716c",
+          400: "#a8a29e",
         },
       },
       fontFamily: {
-        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "serif"],
-        bangla: ["var(--font-bangla)", "sans-serif"],
-      },
-      borderRadius: {
-        "4xl": "2rem",
+        sans: ["var(--font-sans)", "var(--font-bangla)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "var(--font-bangla)", "sans-serif"],
       },
       boxShadow: {
-        soft: "0 2px 20px -4px rgba(31, 63, 40, 0.12)",
-        card: "0 8px 30px -8px rgba(31, 63, 40, 0.18)",
-        glow: "0 0 40px -8px rgba(255, 136, 15, 0.4)",
-      },
-      keyframes: {
-        "fade-up": {
-          "0%": { opacity: "0", transform: "translateY(12px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        shimmer: {
-          "100%": { transform: "translateX(100%)" },
-        },
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-8px)" },
-        },
-      },
-      animation: {
-        "fade-up": "fade-up 0.5s ease-out forwards",
-        float: "float 4s ease-in-out infinite",
+        card: "0 1px 2px rgba(28,25,23,0.04), 0 4px 16px -4px rgba(28,25,23,0.08)",
+        lift: "0 2px 4px rgba(28,25,23,0.06), 0 12px 28px -8px rgba(28,25,23,0.16)",
       },
     },
   },
