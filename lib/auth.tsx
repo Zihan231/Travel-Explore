@@ -87,7 +87,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               <button onClick={() => setPrompt(null)} aria-label="Close" className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-lg text-ink-500 hover:bg-paper-100">
                 <X className="h-4 w-4" />
               </button>
-              <span className="grid h-12 w-12 place-items-center rounded-xl bg-ruchi-50 text-ruchi-600">
+              <span className="grid h-12 w-12 place-items-center rounded-xl bg-leaf-50 text-leaf-700">
                 <Lock className="h-6 w-6" />
               </span>
               <h2 className="mt-4 text-2xl font-extrabold">{tr(prompt.en, prompt.bn)}</h2>
@@ -95,7 +95,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 {tr("You can browse freely. Join Ruchi Explore Limitless to react, post, check in and collect stamps.", "আপনি স্বাধীনভাবে ঘুরে দেখতে পারেন। রিয়্যাক্ট, পোস্ট, চেক-ইন ও স্ট্যাম্প সংগ্রহ করতে রুচি এক্সপ্লোর লিমিটলেসে যোগ দিন।")}
               </p>
               <div className="mt-5 grid gap-2.5">
-                <Link href="/login" onClick={() => setPrompt(null)} className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-ruchi-600 font-semibold text-white shadow-card hover:bg-ruchi-700">
+                <Link href="/login" onClick={() => setPrompt(null)} className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-leaf-600 font-semibold text-white shadow-card hover:bg-leaf-700">
                   <LogIn className="h-4 w-4" /> {tr("Log in", "লগ ইন")}
                 </Link>
                 <Link href="/register" onClick={() => setPrompt(null)} className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-paper-300 font-semibold hover:bg-paper">

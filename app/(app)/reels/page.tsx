@@ -83,7 +83,7 @@ function ReelItem({ reel }: { reel: Reel }) {
           </span>
           {!isAdmin && <button onClick={() => requireAuth({ en: "Log in to follow creators", bn: "ফলো করতে লগ ইন করুন" })} className="rounded-md border border-white/70 px-2.5 py-1 text-xs font-bold">{tr("Follow", "ফলো")}</button>}
         </div>
-        <span className="mt-3 inline-flex items-center gap-1 rounded-md bg-ruchi-600 px-2 py-1 text-xs font-bold">
+        <span className="mt-3 inline-flex items-center gap-1 rounded-md bg-leaf-600 px-2 py-1 text-xs font-bold">
           <MapPin className="h-3.5 w-3.5" /> {pick(reel.place, lang)}
         </span>
         <p className="mt-2 text-sm leading-relaxed">{pick(reel.caption, lang)}</p>

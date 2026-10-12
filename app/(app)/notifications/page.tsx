@@ -24,15 +24,15 @@ export default function NotificationsPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="flex items-center gap-2 text-3xl font-extrabold"><Bell className="h-7 w-7 text-ruchi-600" />{t("notifications")}</h1>
-        <button onClick={() => setReadAll(true)} className="text-sm font-bold text-ruchi-700">{tr("Mark all read", "সব পড়া হয়েছে")}</button>
+        <h1 className="flex items-center gap-2 text-3xl font-extrabold"><Bell className="h-7 w-7 text-leaf-700" />{t("notifications")}</h1>
+        <button onClick={() => setReadAll(true)} className="text-sm font-bold text-leaf-700">{tr("Mark all read", "সব পড়া হয়েছে")}</button>
       </div>
       <div className="divide-y divide-paper-100 overflow-hidden rounded-2xl border border-paper-200 bg-white shadow-card">
         {notifications.map((n) => {
           const { icon: Icon, cls } = iconFor[n.type];
           const unread = !n.read && !readAll;
           return (
-            <div key={n.id} className={cn("flex items-center gap-3 p-4", unread && "bg-ruchi-50/60")}>
+            <div key={n.id} className={cn("flex items-center gap-3 p-4", unread && "bg-leaf-50/60")}>
               <div className="relative shrink-0">
                 {n.avatar ? <Image src={n.avatar} alt="" width={44} height={44} className="h-11 w-11 rounded-full object-cover" /> : (
                   <span className={cn("grid h-11 w-11 place-items-center rounded-full text-white", cls)}><Icon className="h-5 w-5" /></span>

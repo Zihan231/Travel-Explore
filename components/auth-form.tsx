@@ -129,7 +129,7 @@ export function AuthForm({ mode, role }: { mode: "login" | "register"; role: "to
             {!admin && (
               <p>
                 {mode === "login" ? t("noAccount") : t("haveAccount")}{" "}
-                <Link href={mode === "login" ? "/register" : "/login"} className="font-bold text-ruchi-700">
+                <Link href={mode === "login" ? "/register" : "/login"} className="font-bold text-leaf-700">
                   {mode === "login" ? t("register") : t("login")}
                 </Link>
               </p>
@@ -156,7 +156,7 @@ export function AuthForm({ mode, role }: { mode: "login" | "register"; role: "to
         <div className="absolute inset-x-0 top-0 h-3/5 bg-gradient-to-b from-black/60 via-black/25 to-transparent" />
 
         <div className="absolute inset-x-0 top-0 p-12 text-white">
-          <span className="mb-5 block h-1.5 w-14 rounded-full bg-ruchi-600" />
+          <span className="mb-5 block h-1.5 w-14 rounded-full bg-gold-500" />
           <p className="max-w-md font-display text-4xl font-extrabold leading-tight text-balance drop-shadow-md">
             {admin ? tr("Curate Bangladesh for every explorer.", "প্রতিটি ভ্রমণকারীর জন্য বাংলাদেশ সাজান।") : tr("Every journey has a story.", "প্রতিটি যাত্রার একটি গল্প আছে।")}
           </p>
@@ -180,7 +180,7 @@ function Field({ icon: Icon, className, ...props }: { icon: typeof Mail } & Reac
       <input
         {...props}
         className={cn(
-          "h-12 w-full rounded-xl border border-paper-300 bg-white pl-11 pr-11 text-[15px] outline-none transition-colors placeholder:text-ink-400 focus:border-ruchi-600 focus:ring-2 focus:ring-ruchi-600/15",
+          "h-12 w-full rounded-xl border border-paper-300 bg-white pl-11 pr-11 text-[15px] outline-none transition-colors placeholder:text-ink-400 focus:border-leaf-600 focus:ring-2 focus:ring-leaf-600/15",
           className
         )}
       />

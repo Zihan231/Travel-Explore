@@ -48,7 +48,7 @@ export default function ProfilePage() {
         <p className="text-ink-500">@{currentUser.username}</p>
         <p className="mt-2 text-[15px] text-ink-700">{pick(currentUser.bio, lang)}</p>
         <div className="mt-3 flex flex-wrap gap-2">
-          <span className="inline-flex items-center gap-1 rounded-md bg-ruchi-50 px-2.5 py-1 text-xs font-bold text-ruchi-700"><Flame className="h-3.5 w-3.5" />{currentUser.streak} {t("streak")}</span>
+          <span className="inline-flex items-center gap-1 rounded-md bg-gold-100 px-2.5 py-1 text-xs font-bold text-gold-700"><Flame className="h-3.5 w-3.5 text-ruchi-600" />{currentUser.streak} {t("streak")}</span>
           <span className="rounded-md bg-leaf-50 px-2.5 py-1 text-xs font-bold text-leaf-700">{pick(currentUser.level, lang)}</span>
         </div>
 
@@ -60,9 +60,9 @@ export default function ProfilePage() {
 
         <div className="mt-5 grid grid-cols-3 border-b border-paper-200">
           {tabs.map((tb) => (
-            <button key={tb.id} onClick={() => setTab(tb.id)} className={cn("relative flex items-center justify-center gap-1.5 py-3 text-sm font-bold", tab === tb.id ? "text-ruchi-700" : "text-ink-500")}>
+            <button key={tb.id} onClick={() => setTab(tb.id)} className={cn("relative flex items-center justify-center gap-1.5 py-3 text-sm font-bold", tab === tb.id ? "text-leaf-700" : "text-ink-500")}>
               <tb.icon className="h-4 w-4" /> {tb.label}
-              {tab === tb.id && <motion.span layoutId="prof-tab" className="absolute inset-x-0 -bottom-px h-0.5 bg-ruchi-600" />}
+              {tab === tb.id && <motion.span layoutId="prof-tab" className="absolute inset-x-0 -bottom-px h-0.5 bg-leaf-600" />}
             </button>
           ))}
         </div>

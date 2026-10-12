@@ -63,7 +63,7 @@ export function PostCard({ post, index = 0 }: { post: Post; index?: number }) {
         <div className="px-4 pt-3">
           <span
             className={`inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-bold ${
-              isSpot ? "bg-ruchi-50 text-ruchi-700" : "bg-leaf-50 text-leaf-700"
+              isSpot ? "bg-gold-100 text-gold-700" : "bg-leaf-50 text-leaf-700"
             }`}
           >
             {isSpot ? <Sparkles className="h-3.5 w-3.5" /> : <MapPin className="h-3.5 w-3.5" />}
@@ -83,7 +83,7 @@ export function PostCard({ post, index = 0 }: { post: Post; index?: number }) {
               <Image src={m.url} alt="" fill sizes="(max-width: 768px) 100vw, 600px" className="object-cover" />
               {m.type === "video" && (
                 <span className="absolute inset-0 grid place-items-center">
-                  <span className="grid h-12 w-12 place-items-center rounded-full bg-white/90 text-ruchi-600 shadow-lift">
+                  <span className="grid h-12 w-12 place-items-center rounded-full bg-white/90 text-leaf-700 shadow-lift">
                     <Play className="h-5 w-5 fill-current" />
                   </span>
                 </span>
@@ -95,14 +95,14 @@ export function PostCard({ post, index = 0 }: { post: Post; index?: number }) {
 
       {post.route && (
         <div className="mx-4 mt-3 rounded-xl border border-paper-200 bg-paper p-3.5">
-          <p className="mb-2.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ruchi-700">
+          <p className="mb-2.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-leaf-700">
             <Route className="h-3.5 w-3.5" />
             {tr("How to reach", "কীভাবে যাবেন")}
           </p>
           <ol className="space-y-2.5">
             {post.route.map((step, i) => (
               <li key={i} className="flex items-start gap-2.5 text-sm">
-                <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded bg-ruchi-600 text-[11px] font-bold text-white">
+                <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded bg-leaf-600 text-[11px] font-bold text-white">
                   {i + 1}
                 </span>
                 <span className="flex-1">

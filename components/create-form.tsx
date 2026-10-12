@@ -79,7 +79,7 @@ function DestinationForm() {
           <Label>{tr("Stamp rarity", "স্ট্যাম্পের দুর্লভতা")}</Label>
           <div className="grid grid-cols-3 gap-2">
             {(["common", "rare", "legendary"] as Rarity[]).map((r) => (
-              <button key={r} onClick={() => setRarity(r)} className={cn("rounded-xl border py-2.5 text-sm font-bold capitalize transition-colors", rarity === r ? "border-ruchi-600 bg-ruchi-50 text-ruchi-700" : "border-paper-300 bg-white text-ink-700")}>{r}</button>
+              <button key={r} onClick={() => setRarity(r)} className={cn("rounded-xl border py-2.5 text-sm font-bold capitalize transition-colors", rarity === r ? "border-leaf-600 bg-leaf-50 text-leaf-700" : "border-paper-300 bg-white text-ink-700")}>{r}</button>
             ))}
           </div>
         </div>
@@ -99,7 +99,7 @@ function DestinationForm() {
               </div>
             ))}
           </div>
-          <button onClick={() => setMissions([...missions, ""])} className="mt-2 flex items-center gap-1 text-sm font-bold text-ruchi-700"><Plus className="h-4 w-4" />{tr("Add mission", "মিশন যোগ")}</button>
+          <button onClick={() => setMissions([...missions, ""])} className="mt-2 flex items-center gap-1 text-sm font-bold text-leaf-700"><Plus className="h-4 w-4" />{tr("Add mission", "মিশন যোগ")}</button>
         </div>
         <div><Label>{tr("Cover photos", "কভার ছবি")}</Label><MediaPicker media={media} setMedia={setMedia} /></div>
       </div>
@@ -157,7 +157,7 @@ function TouristForm({ initial }: { initial: "post" | "spot" }) {
         <input className={input} placeholder={tr("Spot name (e.g. Debotakhum)", "স্থানের নাম (যেমন: দেবতাখুম)")} />
       )}
 
-      <textarea rows={4} placeholder={mode === "spot" ? tr("What makes this place special?", "জায়গাটি কেন বিশেষ?") : t("writePost")} className="w-full resize-none rounded-xl border border-paper-300 bg-white p-4 text-[15px] leading-relaxed outline-none transition-colors placeholder:text-ink-400 focus:border-ruchi-600 focus:ring-2 focus:ring-ruchi-600/15" />
+      <textarea rows={4} placeholder={mode === "spot" ? tr("What makes this place special?", "জায়গাটি কেন বিশেষ?") : t("writePost")} className="w-full resize-none rounded-xl border border-paper-300 bg-white p-4 text-[15px] leading-relaxed outline-none transition-colors placeholder:text-ink-400 focus:border-leaf-600 focus:ring-2 focus:ring-leaf-600/15" />
 
       <div>
         <Label>{t("addPhotos")}</Label>
@@ -171,14 +171,14 @@ function TouristForm({ initial }: { initial: "post" | "spot" }) {
           <div className="space-y-2">
             {steps.map((s, i) => (
               <div key={s} className="flex items-center gap-2">
-                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-ruchi-600 text-sm font-bold text-white">{i + 1}</span>
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-leaf-600 text-sm font-bold text-white">{i + 1}</span>
                 <input className={cn(input, "h-11 w-28 shrink-0 px-3 text-sm")} placeholder={tr("From", "কোথা থেকে")} />
                 <input className={cn(input, "h-11 px-3 text-sm")} placeholder={tr("How (bus, boat…)", "যেভাবে (বাস, নৌকা…)")} />
                 {steps.length > 1 && <button onClick={() => setSteps(steps.filter((x) => x !== s))} aria-label="Remove step" className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-ink-500 hover:bg-ruchi-50 hover:text-ruchi-600"><X className="h-4 w-4" /></button>}
               </div>
             ))}
           </div>
-          <button onClick={() => setSteps([...steps, Math.max(...steps) + 1])} className="mt-2 flex items-center gap-1 text-sm font-bold text-ruchi-700"><Route className="h-4 w-4" />{tr("Add step", "ধাপ যোগ")}</button>
+          <button onClick={() => setSteps([...steps, Math.max(...steps) + 1])} className="mt-2 flex items-center gap-1 text-sm font-bold text-leaf-700"><Route className="h-4 w-4" />{tr("Add step", "ধাপ যোগ")}</button>
         </div>
       )}
 

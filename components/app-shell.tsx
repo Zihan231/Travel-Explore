@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   Home,
   Compass,
+  Stamp,
   BookMarked,
   Newspaper,
   Sparkles,
@@ -43,7 +44,7 @@ type Item = { href: string; icon: LucideIcon; en: string; bn: string };
 const publicNav: Item[] = [
   { href: "/", icon: Home, en: "Home", bn: "হোম" },
   { href: "/explore", icon: Compass, en: "Explore", bn: "এক্সপ্লোর" },
-  { href: "/passport", icon: BookMarked, en: "Passport", bn: "পাসপোর্ট" },
+  { href: "/passport", icon: Stamp, en: "Passport", bn: "পাসপোর্ট" },
   { href: "/feed", icon: Newspaper, en: "Feed", bn: "ফিড" },
   { href: "/spots", icon: Sparkles, en: "Hidden spots", bn: "গোপন স্থান" },
   { href: "/reels", icon: Clapperboard, en: "Reels", bn: "রিলস" },
@@ -161,7 +162,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const showBottom = !immersive;
   const topHidden = hideTop || isReels;
 
-  const active = (href: string) => (href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/"));
+  const active = (href: string) => {
+    if (href === "/") return pathname === "/";
+    if (href === "/explore") return pathname === "/explore" || pathname.startsWith("/explore/") || pathname.startsWith("/places/");
+    if (href === "/passport") return pathname === "/passport" || pathname.startsWith("/passport/") || pathname.startsWith("/checkin/");
+    return pathname === href || pathname.startsWith(href + "/");
+  };
   const isProtected = protectedPaths.some((x) => pathname.startsWith(x));
   const wide = isGuest && pathname === "/";
 
@@ -175,24 +181,33 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-dvh bg-paper">
       {/* Desktop top navigation (all roles) */}
-      <header className={cn("sticky top-0 z-40 hidden border-b border-paper-200 bg-white/95 backdrop-blur transition-transform duration-300 lg:block", hideTop && "-translate-y-full")}>
-        <div className="mx-auto flex h-[76px] max-w-[1320px] items-center gap-4 px-4 xl:px-6 2xl:gap-8">
-          <Logo href="/" className="shrink-0 [&_img]:h-[60px]" />
-          <nav className="no-scrollbar flex min-w-0 flex-1 items-center gap-0.5 overflow-x-auto" aria-label="Main">
-            {nav.map(({ href, icon: Icon, en, bn }) => (
-              <Link
-                key={href}
-                href={href}
-                className={cn(
-                  "relative flex shrink-0 items-center gap-1.5 rounded-lg px-2 py-2 text-[13px] font-semibold transition-colors xl:px-3 xl:text-sm",
-                  active(href) ? "text-ruchi-700" : "text-ink-700 hover:bg-paper-100"
-                )}
-              >
-                <Icon className="hidden h-4 w-4 2xl:block" />
-                {tr(en, bn)}
-                {active(href) && <span className="absolute inset-x-2 -bottom-[19px] h-[3px] rounded-t bg-ruchi-600 xl:inset-x-3" />}
-              </Link>
-            ))}
+      <header className="sticky top-0 z-40 hidden border-b border-paper-200 bg-white/95 backdrop-blur lg:block">
+        <div className="mx-auto flex h-[76px] max-w-[1320px] items-center gap-3 px-4 xl:px-6 2xl:gap-6">
+          <Logo href="/" className="shrink-0 [&_img]:h-[56px]" />
+          <nav className="no-scrollbar flex min-w-0 flex-1 items-center gap-1 overflow-x-auto py-1" aria-label="Main">
+            {nav.map(({ href, icon: Icon, en, bn }) => {
+              const on = active(href);
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  className={cn(
+                    "group relative flex shrink-0 items-center gap-2 rounded-xl px-2.5 py-2 text-xs font-semibold transition-all xl:px-3 xl:text-[13px] 2xl:text-sm",
+                    on
+                      ? "bg-leaf-50 text-leaf-800 font-bold shadow-sm ring-1 ring-leaf-600/20"
+                      : "text-ink-700 hover:bg-paper-100 hover:text-ink"
+                  )}
+                >
+                  <Icon
+                    className={cn(
+                      "h-4 w-4 shrink-0 transition-transform duration-150 group-hover:scale-110",
+                      on ? "text-leaf-600" : "text-ink-500 group-hover:text-ink-700"
+                    )}
+                  />
+                  <span>{tr(en, bn)}</span>
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="flex shrink-0 items-center gap-2">
@@ -205,7 +220,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 <Link href="/login" className="inline-flex h-10 items-center rounded-lg border border-paper-300 px-4 text-sm font-semibold hover:bg-paper">
                   {tr("Log in", "লগ ইন")}
                 </Link>
-                <Link href="/register" className="inline-flex h-10 items-center rounded-lg bg-ruchi-600 px-4 text-sm font-semibold text-white shadow-card hover:bg-ruchi-700">
+                <Link href="/register" className="inline-flex h-10 items-center rounded-lg bg-leaf-600 px-4 text-sm font-semibold text-white shadow-card hover:bg-leaf-700">
                   {tr("Sign up", "সাইন আপ")}
                 </Link>
               </>
@@ -220,7 +235,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   <Bell className="h-[18px] w-[18px]" />
                   <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-ruchi-600 ring-2 ring-white" />
                 </Link>
-                <Link href="/create" aria-label={createLabel} className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-ruchi-600 px-3 text-sm font-semibold text-white shadow-card hover:bg-ruchi-700 xl:px-4">
+                <Link href="/create" aria-label={createLabel} className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-leaf-600 px-3 text-sm font-semibold text-white shadow-card hover:bg-leaf-700 xl:px-4">
                   <Plus className="h-4 w-4" />
                   <span className="hidden xl:inline">{createLabel}</span>
                 </Link>
@@ -238,7 +253,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="flex shrink-0 items-center gap-1.5">
             <LangToggle compact />
             {isGuest ? (
-              <Link href="/login" className="inline-flex h-9 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg bg-ruchi-600 px-3 text-sm font-semibold text-white">
+              <Link href="/login" className="inline-flex h-9 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg bg-leaf-600 px-3 text-sm font-semibold text-white">
                 <LogIn className="h-4 w-4" /> {tr("Log in", "লগ ইন")}
               </Link>
             ) : (
@@ -271,7 +286,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
           {!wide && !isReels && (
             <aside className="hidden w-[22rem] shrink-0 pt-8 xl:block">
-              <RightRail />
+              <RightRail hideTop={false} />
             </aside>
           )}
         </div>
@@ -283,7 +298,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           href="/create"
           aria-label={createLabel}
           className={cn(
-            "fixed right-4 z-40 grid h-12 w-12 place-items-center rounded-xl bg-ruchi-600 text-white shadow-lift transition-all duration-300 active:scale-95 lg:hidden",
+            "fixed right-4 z-40 grid h-12 w-12 place-items-center rounded-xl bg-leaf-600 text-white shadow-lift transition-all duration-300 active:scale-95 lg:hidden",
             "bottom-[76px]"
           )}
         >
@@ -302,10 +317,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 href={href}
                 className={cn(
                   "relative flex flex-col items-center gap-0.5 pb-2 pt-2.5 text-[11px] font-semibold transition-colors",
-                  on ? "text-ruchi-700" : "text-ink-500"
+                  on ? "text-leaf-700" : "text-ink-500"
                 )}
               >
-                {on && <span className="absolute inset-x-5 top-0 h-[3px] rounded-b bg-ruchi-600" />}
+                {on && <span className="absolute inset-x-5 top-0 h-[3px] rounded-b bg-leaf-600" />}
                 <Icon className="h-[22px] w-[22px]" strokeWidth={on ? 2.4 : 1.9} />
                 {tr(en, bn)}
               </Link>
@@ -317,9 +332,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <button
                 onClick={() => setMoreOpen(true)}
                 aria-haspopup="dialog"
-                className={cn("relative flex flex-col items-center gap-0.5 pb-2 pt-2.5 text-[11px] font-semibold transition-colors", onMore ? "text-ruchi-700" : "text-ink-500")}
+                className={cn("relative flex flex-col items-center gap-0.5 pb-2 pt-2.5 text-[11px] font-semibold transition-colors", onMore ? "text-leaf-700" : "text-ink-500")}
               >
-                {onMore && <span className="absolute inset-x-5 top-0 h-[3px] rounded-b bg-ruchi-600" />}
+                {onMore && <span className="absolute inset-x-5 top-0 h-[3px] rounded-b bg-leaf-600" />}
                 <Ellipsis className="h-[22px] w-[22px]" strokeWidth={onMore ? 2.4 : 1.9} />
                 {tr("More", "আরও")}
               </button>
@@ -362,7 +377,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     href={href}
                     className={cn(
                       "flex flex-col items-center gap-2 rounded-xl border p-3.5 text-center text-xs font-semibold",
-                      active(href) ? "border-ruchi-600 bg-ruchi-50 text-ruchi-700" : "border-paper-200 bg-paper text-ink-700"
+                      active(href) ? "border-leaf-600 bg-leaf-50 text-leaf-700" : "border-paper-200 bg-paper text-ink-700"
                     )}
                   >
                     <Icon className="h-6 w-6" />
@@ -373,7 +388,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <div className="mt-3 grid gap-2">
                 {isGuest ? (
                   <>
-                    <Link href="/register" className="inline-flex h-12 items-center justify-center rounded-xl bg-ruchi-600 font-semibold text-white shadow-card">
+                    <Link href="/register" className="inline-flex h-12 items-center justify-center rounded-xl bg-leaf-600 font-semibold text-white shadow-card">
                       {tr("Sign up free", "বিনামূল্যে সাইন আপ")}
                     </Link>
                     <Link href="/login?role=admin" className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-paper-300 text-sm font-semibold">

@@ -46,7 +46,7 @@ export default function SpotsPage() {
     <div className="space-y-5">
       <div>
         <h1 className="flex items-center gap-2 text-3xl font-extrabold">
-          <Sparkles className="h-7 w-7 text-ruchi-600" />
+          <Sparkles className="h-7 w-7 text-gold-500" />
           {tr("Hidden spots", "গোপন স্থান")}
         </h1>
         <p className="mt-1 text-ink-500">{tr("Places locals know, reviewed by our team.", "স্থানীয়দের জানা জায়গা, আমাদের টিমের যাচাইকৃত।")}</p>

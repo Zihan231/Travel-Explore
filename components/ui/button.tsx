@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { forwardRef } from "react";
 
-type Variant = "primary" | "green" | "dark" | "outline" | "ghost" | "danger";
+type Variant = "primary" | "green" | "red" | "dark" | "outline" | "ghost" | "danger";
 type Size = "sm" | "md" | "lg" | "icon";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -12,8 +12,9 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variants: Record<Variant, string> = {
-  primary: "bg-ruchi-600 text-white hover:bg-ruchi-700 shadow-card",
+  primary: "bg-leaf-600 text-white hover:bg-leaf-700 shadow-card",
   green: "bg-leaf-600 text-white hover:bg-leaf-700 shadow-card",
+  red: "bg-ruchi-600 text-white hover:bg-ruchi-700 shadow-card",
   dark: "bg-ink text-white hover:bg-ink-700",
   outline: "border border-paper-300 bg-white text-ink hover:border-ink hover:bg-paper",
   ghost: "text-ink hover:bg-paper-100",

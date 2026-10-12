@@ -419,9 +419,10 @@ export const notifications: AppNotification[] = [
 ];
 
 export const missions: Mission[] = [
-  { id: "m1", title: { en: "Bangladesh Discoveries", bn: "বাংলাদেশ আবিষ্কার" }, desc: { en: "Visit 10 destinations across the country", bn: "দেশজুড়ে ১০টি গন্তব্য ভ্রমণ করুন" }, target: 10, progress: 5, reward: { en: "Explorer badge", bn: "এক্সপ্লোরার ব্যাজ" } },
-  { id: "m2", title: { en: "Monsoon Explorer 2026", bn: "মনসুন এক্সপ্লোরার ২০২৬" }, desc: { en: "Visit 5 waterfalls this rainy season", bn: "এই বর্ষায় ৫টি জলপ্রপাত দেখুন" }, target: 5, progress: 2, reward: { en: "Seasonal holographic stamp", bn: "মৌসুমি হলোগ্রাফিক স্ট্যাম্প" }, season: true },
-  { id: "m3", title: { en: "Coastal Soul", bn: "উপকূলের আত্মা" }, desc: { en: "Check in at 3 beaches", bn: "৩টি সৈকতে চেক-ইন করুন" }, target: 3, progress: 1, reward: { en: "Beach Lover badge", bn: "বিচ লাভার ব্যাজ" } },
+  { id: "m1", title: { en: "Bangladesh Discoveries", bn: "বাংলাদেশ আবিষ্কার" }, desc: { en: "Visit 10 destinations across the country", bn: "দেশজুড়ে ১০টি গন্তব্য ভ্রমণ করুন" }, target: 10, progress: 5, reward: { en: "Explorer badge", bn: "এক্সপ্লোরার ব্যাজ" }, category: "all", xp: 1000 },
+  { id: "m2", title: { en: "Monsoon Explorer 2026", bn: "মনসুন এক্সপ্লোরার ২০২৬" }, desc: { en: "Visit 5 waterfalls this rainy season", bn: "এই বর্ষায় ৫টি জলপ্রপাত দেখুন" }, target: 5, progress: 2, reward: { en: "Seasonal holographic stamp", bn: "মৌসুমি হলোগ্রাফিক স্ট্যাম্প" }, season: true, category: "waterfall", xp: 850 },
+  { id: "m3", title: { en: "Coastal Soul", bn: "উপকূলের আত্মা" }, desc: { en: "Check in at 3 beaches", bn: "৩টি সৈকতে চেক-ইন করুন" }, target: 3, progress: 1, reward: { en: "Beach Lover badge", bn: "বিচ লাভার ব্যাজ" }, category: "beach", xp: 500 },
+  { id: "m4", title: { en: "Highland Heights", bn: "পাহাড় চূড়ার রোমাঞ্চ" }, desc: { en: "Conquer 4 scenic hill summits", bn: "৪টি মনোরম পাহাড় চূড়ায় আরোহণ করুন" }, target: 4, progress: 3, reward: { en: "Summit Seeker badge", bn: "সামিট সিকার ব্যাজ" }, category: "hill", xp: 700 },
 ];
 
 export const categories: { id: string; label: { en: string; bn: string }; icon: string }[] = [

@@ -7,10 +7,10 @@ import { cn } from "@/lib/utils";
 export function SquareMark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={cn("h-5 w-5", className)} aria-hidden>
-      <rect x="1" y="1" width="10" height="10" rx="1.5" fill="#2c8236" />
-      <rect x="13" y="1" width="10" height="10" rx="1.5" fill="#2c8236" />
-      <rect x="1" y="13" width="10" height="10" rx="1.5" fill="#2c8236" />
-      <rect x="13" y="13" width="10" height="10" rx="1.5" fill="#d1181f" />
+      <rect x="1" y="1" width="10" height="10" rx="1.5" fill="#006535" />
+      <rect x="13" y="1" width="10" height="10" rx="1.5" fill="#006535" />
+      <rect x="1" y="13" width="10" height="10" rx="1.5" fill="#006535" />
+      <rect x="13" y="13" width="10" height="10" rx="1.5" fill="#e91f27" />
     </svg>
   );
 }

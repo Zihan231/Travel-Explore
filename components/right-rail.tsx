@@ -6,7 +6,7 @@ import { Bell, Plus, ChevronRight, Trophy, TrendingUp, Clock, Flame, LogIn, User
 import { useI18n, pick } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
 import { currentUser, leaderboard, places, pendingSpots, missions } from "@/lib/data";
-import { formatCount } from "@/lib/utils";
+import { formatCount, cn } from "@/lib/utils";
 
 function Card({ title, href, children }: { title: string; href?: string; children: React.ReactNode }) {
   const { t } = useI18n();
@@ -15,7 +15,7 @@ function Card({ title, href, children }: { title: string; href?: string; childre
       <div className="mb-3 flex items-center justify-between">
         <h3 className="font-display text-base font-bold">{title}</h3>
         {href && (
-          <Link href={href} className="flex items-center text-xs font-bold text-ruchi-700">
+          <Link href={href} className="flex items-center text-xs font-bold text-leaf-700">
             {t("seeAll")} <ChevronRight className="h-3.5 w-3.5" />
           </Link>
         )}
@@ -25,7 +25,7 @@ function Card({ title, href, children }: { title: string; href?: string; childre
   );
 }
 
-export function RightRail() {
+export function RightRail({ hideTop = false }: { hideTop?: boolean }) {
   const { lang, tr } = useI18n();
   const { isAdmin, isGuest } = useAuth();
   const collected = places.filter((p) => p.collected).length;
@@ -33,12 +33,19 @@ export function RightRail() {
   const mission = missions[1];
 
   return (
-    <div className="sticky top-24 max-h-[calc(100dvh-7rem)] space-y-4 overflow-y-auto pb-2 no-scrollbar">
+    <div
+      className={cn(
+        "sticky space-y-4 overflow-y-auto pb-4 no-scrollbar transition-[top,max-height] duration-300",
+        hideTop
+          ? "top-4 max-h-[calc(100dvh-2rem)]"
+          : "top-[92px] max-h-[calc(100dvh-6.5rem)]"
+      )}
+    >
       {isGuest ? (
-        <section className="dots overflow-hidden rounded-2xl bg-ruchi-600 p-5 text-white shadow-lift">
+        <section className="dots overflow-hidden rounded-2xl bg-leaf-700 p-5 text-white shadow-lift">
           <h3 className="font-display text-xl font-extrabold leading-tight">{tr("Collect Bangladesh, one stamp at a time", "এক স্ট্যাম্পে বাংলাদেশ জয় করুন")}</h3>
           <p className="mt-1.5 text-sm text-white/85">{tr("Join free to check in, react, post and join the leaderboard.", "চেক-ইন, রিয়্যাক্ট, পোস্ট ও লিডারবোর্ডে যোগ দিতে বিনামূল্যে জয়েন করুন।")}</p>
-          <Link href="/register" className="mt-4 inline-flex h-10 items-center gap-2 rounded-lg bg-white px-4 text-sm font-bold text-ruchi-700">
+          <Link href="/register" className="mt-4 inline-flex h-10 items-center gap-2 rounded-lg bg-white px-4 text-sm font-bold text-leaf-800 shadow hover:bg-paper">
             <UserPlus className="h-4 w-4" /> {tr("Create free account", "বিনামূল্যে অ্যাকাউন্ট খুলুন")}
           </Link>
         </section>
@@ -56,10 +63,10 @@ export function RightRail() {
         <Card title={tr("Your progress", "আপনার অগ্রগতি")} href="/passport">
           <div className="flex items-end justify-between">
             <p className="font-display text-3xl font-extrabold leading-none">{collected}<span className="text-lg text-ink-400"> / 10</span></p>
-            <span className="inline-flex items-center gap-1 rounded-md bg-ruchi-50 px-2 py-1 text-xs font-bold text-ruchi-700"><Flame className="h-3.5 w-3.5" />{currentUser.streak} {tr("day streak", "দিনের ধারা")}</span>
+            <span className="inline-flex items-center gap-1 rounded-md bg-gold-100 px-2 py-1 text-xs font-bold text-gold-700"><Flame className="h-3.5 w-3.5 text-ruchi-600" />{currentUser.streak} {tr("day streak", "দিনের ধারা")}</span>
           </div>
           <div className="mt-3 grid grid-cols-10 gap-1">
-            {Array.from({ length: 10 }).map((_, i) => <span key={i} className={`h-2 rounded-sm ${i < collected ? "bg-ruchi-600" : "bg-paper-200"}`} />)}
+            {Array.from({ length: 10 }).map((_, i) => <span key={i} className={`h-2 rounded-sm ${i < collected ? "bg-leaf-600" : "bg-paper-200"}`} />)}
           </div>
           <p className="mt-3 text-xs text-ink-500">{pick(mission.title, lang)}: {mission.progress}/{mission.target}</p>
         </Card>

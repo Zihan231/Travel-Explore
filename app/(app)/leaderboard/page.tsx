@@ -79,7 +79,7 @@ export default function LeaderboardPage() {
   return (
     <div className="space-y-6">
       {/* Hero + podium */}
-      <section className="dots relative overflow-hidden rounded-2xl bg-ruchi-600 px-4 pb-0 pt-6 text-white shadow-lift sm:px-8">
+      <section className="dots relative overflow-hidden rounded-2xl bg-leaf-700 px-4 pb-0 pt-6 text-white shadow-lift sm:px-8">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/80">{tr("Ruchi Explore Limitless", "রুচি এক্সপ্লোর লিমিটলেস")}</p>
@@ -92,7 +92,7 @@ export default function LeaderboardPage() {
                 role="tab"
                 aria-selected={range === r}
                 onClick={() => setRange(r)}
-                className={cn("relative rounded-lg px-4 py-2 text-sm font-bold transition-colors", range === r ? "text-ruchi-700" : "text-white/85 hover:text-white")}
+                className={cn("relative rounded-lg px-4 py-2 text-sm font-bold transition-colors", range === r ? "text-leaf-800" : "text-white/85 hover:text-white")}
               >
                 {range === r && <motion.span layoutId="lb-range" className="absolute inset-0 rounded-lg bg-white" transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
                 <span className="relative">{r === "week" ? t("thisWeek") : t("allTime")}</span>
@@ -117,8 +117,8 @@ export default function LeaderboardPage() {
 
       {/* My rank / CTA */}
       {role === "tourist" && me && (
-        <section className="flex items-center gap-4 rounded-2xl border-2 border-ruchi-600 bg-white p-4 shadow-card">
-          <div className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-ruchi-600 text-white">
+        <section className="flex items-center gap-4 rounded-2xl border-2 border-leaf-600 bg-white p-4 shadow-card">
+          <div className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-leaf-600 text-white">
             <span className="font-display text-2xl font-extrabold">#{me.rank}</span>
           </div>
           <div className="min-w-0 flex-1">
@@ -129,7 +129,7 @@ export default function LeaderboardPage() {
                 : tr("You are leading. Keep exploring!", "আপনি এগিয়ে। চালিয়ে যান!")}
             </p>
             <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-paper-100">
-              <div className="h-full rounded-full bg-ruchi-600" style={{ width: `${Math.min(100, (me.shown / leaderCount) * 100)}%` }} />
+              <div className="h-full rounded-full bg-leaf-600" style={{ width: `${Math.min(100, (me.shown / leaderCount) * 100)}%` }} />
             </div>
           </div>
           <Link href="/explore" className="hidden shrink-0 items-center gap-1 rounded-lg bg-ink px-3.5 py-2 text-sm font-semibold text-white sm:inline-flex">
@@ -139,12 +139,12 @@ export default function LeaderboardPage() {
       )}
       {role === "guest" && (
         <section className="flex items-center gap-4 rounded-2xl border border-dashed border-paper-300 bg-white p-4 shadow-card">
-          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-ruchi-50 text-ruchi-600"><Flame className="h-6 w-6" /></span>
+          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gold-100 text-gold-600"><Flame className="h-6 w-6 text-ruchi-600" /></span>
           <div className="min-w-0 flex-1">
             <p className="font-bold">{tr("Where would you rank?", "আপনি কোথায় থাকতেন?")}</p>
             <p className="text-sm text-ink-500">{tr("Log in and collect stamps to join the race.", "লগ ইন করে স্ট্যাম্প সংগ্রহ করুন ও প্রতিযোগিতায় যোগ দিন।")}</p>
           </div>
-          <Link href="/login" className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-ruchi-600 px-4 py-2.5 text-sm font-semibold text-white shadow-card hover:bg-ruchi-700">
+          <Link href="/login" className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-leaf-600 px-4 py-2.5 text-sm font-semibold text-white shadow-card hover:bg-leaf-700">
             <LogIn className="h-4 w-4" /> {tr("Log in", "লগ ইন")}
           </Link>
         </section>
@@ -165,24 +165,24 @@ export default function LeaderboardPage() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0 }}
                   transition={{ delay: i * 0.03, type: "spring", stiffness: 300, damping: 30 }}
-                  className={cn("flex items-center gap-3 px-4 py-3.5", i > 0 && "border-t border-paper-100", mine && "bg-ruchi-50")}
+                  className={cn("flex items-center gap-3 px-4 py-3.5", i > 0 && "border-t border-paper-100", mine && "bg-leaf-50")}
                 >
                   <span className="w-7 text-center font-display text-xl font-extrabold text-ink-400">{u.rank}</span>
                   <Image src={u.avatar} alt={u.name} width={44} height={44} className="h-11 w-11 rounded-full object-cover" />
                   <div className="min-w-0 flex-1">
                     <p className="flex items-center gap-2 truncate font-bold">
                       {u.name}
-                      {mine && <span className="rounded bg-ruchi-600 px-1.5 py-0.5 text-[10px] font-bold uppercase text-white">{tr("You", "আপনি")}</span>}
+                      {mine && <span className="rounded bg-leaf-600 px-1.5 py-0.5 text-[10px] font-bold uppercase text-white">{tr("You", "আপনি")}</span>}
                     </p>
                     <div className="mt-1.5 flex items-center gap-2">
                       <div className="h-1.5 w-full max-w-[160px] overflow-hidden rounded-full bg-paper-100">
-                        <motion.div initial={{ width: 0 }} animate={{ width: `${Math.max(4, (u.shown / TOTAL) * 100 * (range === "week" ? 3 : 1))}%` }} transition={{ duration: 0.6 }} className="h-full rounded-full bg-ruchi-600" />
+                        <motion.div initial={{ width: 0 }} animate={{ width: `${Math.max(4, (u.shown / TOTAL) * 100 * (range === "week" ? 3 : 1))}%` }} transition={{ duration: 0.6 }} className="h-full rounded-full bg-leaf-600" />
                       </div>
                       <span className="hidden truncate text-xs text-ink-500 sm:inline">{pick(u.level, lang)}</span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="flex items-center justify-end gap-1 font-bold"><BookMarked className="h-3.5 w-3.5 text-ruchi-600" />{u.shown}</p>
+                    <p className="flex items-center justify-end gap-1 font-bold"><BookMarked className="h-3.5 w-3.5 text-leaf-600" />{u.shown}</p>
                     <p className="flex items-center justify-end gap-0.5 text-xs text-ink-500"><Star className="h-3 w-3 text-gold-500" />{formatCount(range === "week" ? u.shown * 250 : u.points)}</p>
                   </div>
                   <Trend trend={u.trend} />

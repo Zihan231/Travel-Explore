@@ -9,6 +9,7 @@ import { Landing } from "@/components/landing";
 import { PlaceCard } from "@/components/place-card";
 import { Stamp } from "@/components/stamp";
 import { AdminStats, SpotReviewList } from "@/components/admin-parts";
+import { MissionCard } from "@/components/mission-card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -18,7 +19,7 @@ function SectionTitle({ title, href }: { title: string; href?: string }) {
     <div className="flex items-end justify-between">
       <h2 className="text-xl font-extrabold">{title}</h2>
       {href && (
-        <Link href={href} className="flex items-center text-sm font-bold text-ruchi-700">
+        <Link href={href} className="flex items-center text-sm font-bold text-leaf-700">
           {t("seeAll")} <ChevronRight className="h-4 w-4" />
         </Link>
       )}
@@ -129,22 +130,9 @@ function TouristHome() {
 
       <section className="space-y-3">
         <SectionTitle title={t("missions")} href="/passport" />
-        <div className="divide-y divide-paper-100 overflow-hidden rounded-2xl border border-paper-200 bg-white shadow-card">
+        <div className="grid gap-4 sm:grid-cols-2">
           {missions.map((m) => (
-            <div key={m.id} className="flex items-center gap-3 p-4">
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-leaf-50 text-leaf-700">
-                <Target className="h-5 w-5" />
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className="truncate font-bold">{pick(m.title, lang)}</p>
-                <div className="mt-1.5 flex items-center gap-2">
-                  <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-paper-100">
-                    <div className="h-full rounded-full bg-leaf-600" style={{ width: `${(m.progress / m.target) * 100}%` }} />
-                  </div>
-                  <span className="text-xs font-bold text-ink-500">{m.progress}/{m.target}</span>
-                </div>
-              </div>
-            </div>
+            <MissionCard key={m.id} mission={m} />
           ))}
         </div>
       </section>

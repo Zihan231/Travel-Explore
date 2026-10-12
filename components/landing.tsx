@@ -71,14 +71,14 @@ function MapScene() {
           <path d="M-5 120 L 200 135" /><path d="M78 30 L 96 330" /><path d="M-5 200 C 50 190, 100 210, 200 190" />
         </g>
         <g stroke="#fff" strokeWidth="4" strokeLinecap="round" fill="none"><path d="M30 20 L 60 110" /><path d="M150 40 L 140 230" /></g>
-        <path d="M30 330 C 60 300, 70 250, 92 196" stroke="#d1181f" strokeWidth="3" strokeDasharray="1 7" strokeLinecap="round" fill="none" />
+        <path d="M30 330 C 60 300, 70 250, 92 196" stroke="#e91f27" strokeWidth="3" strokeDasharray="1 7" strokeLinecap="round" fill="none" />
       </svg>
 
       <div className="absolute left-1/2 top-[172px] -translate-x-1/2 -translate-y-1/2">
-        <motion.span animate={{ scale: [1, 1.9], opacity: [0.35, 0] }} transition={{ duration: 2, repeat: Infinity }} className="absolute inset-0 m-auto h-24 w-24 rounded-full bg-ruchi-600" />
-        <span className="absolute inset-0 m-auto h-24 w-24 rounded-full border-2 border-dashed border-ruchi-600 bg-ruchi-600/10" />
+        <motion.span animate={{ scale: [1, 1.9], opacity: [0.35, 0] }} transition={{ duration: 2, repeat: Infinity }} className="absolute inset-0 m-auto h-24 w-24 rounded-full bg-leaf-600" />
+        <span className="absolute inset-0 m-auto h-24 w-24 rounded-full border-2 border-dashed border-leaf-600 bg-leaf-600/10" />
         <span className="relative grid h-24 w-24 place-items-center">
-          <span className="grid h-11 w-11 place-items-center rounded-full bg-ruchi-600 text-white shadow-lift ring-4 ring-white"><MapPin className="h-5 w-5" /></span>
+          <span className="grid h-11 w-11 place-items-center rounded-full bg-leaf-600 text-white shadow-lift ring-4 ring-white"><MapPin className="h-5 w-5" /></span>
         </span>
       </div>
 
@@ -90,7 +90,7 @@ function MapScene() {
             <p className="truncate text-[9px] text-ink-500">{tr("18 m from Cox's Bazar", "কক্সবাজার থেকে ১৮ মি")}</p>
           </div>
         </div>
-        <div className="mt-2 flex items-center justify-between rounded-lg bg-ruchi-600 px-3 py-1.5 text-[10px] font-bold text-white"><span>{tr("Continue", "এগিয়ে যান")}</span><ArrowRight className="h-3 w-3" /></div>
+        <div className="mt-2 flex items-center justify-between rounded-lg bg-leaf-600 px-3 py-1.5 text-[10px] font-bold text-white"><span>{tr("Continue", "এগিয়ে যান")}</span><ArrowRight className="h-3 w-3" /></div>
       </div>
     </Phone>
   );
@@ -127,7 +127,7 @@ function SelfieScene() {
 
 function StampScene() {
   const { tr } = useI18n();
-  const dots = ["#d1181f", "#2c8236", "#c99a2e", "#d1181f", "#2c8236", "#c99a2e", "#d1181f", "#2c8236"];
+  const dots = ["#e91f27", "#006535", "#ec9523", "#e91f27", "#006535", "#ec9523", "#e91f27", "#006535"];
   return (
     <Phone>
       <StatusBar />
@@ -147,7 +147,7 @@ function StampScene() {
           <Stamp place={places[0]} collected day="12 MAR" year="2026" />
         </motion.div>
         <p className="mt-3 font-display text-base font-extrabold leading-none">{pick(places[0].name, "en")}</p>
-        <span className="mt-1.5 rounded-full bg-ruchi-600 px-2.5 py-0.5 text-[10px] font-bold text-white">+250 XP</span>
+        <span className="mt-1.5 rounded-full bg-gold-500 px-2.5 py-0.5 text-[10px] font-bold text-ink">+250 XP</span>
       </div>
     </Phone>
   );
@@ -165,7 +165,7 @@ function HowItWorks() {
     <section className="border-y border-paper-200 bg-white">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-ruchi-600">{tr("Check-in", "চেক-ইন")}</p>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-leaf-600">{tr("Check-in", "চেক-ইন")}</p>
           <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">{tr("Three steps to a stamp", "তিন ধাপে একটি স্ট্যাম্প")}</h2>
           <p className="mt-2 text-ink-500">{tr("Every stamp is earned on location. No shortcuts.", "প্রতিটি স্ট্যাম্প সরাসরি স্থানে গিয়ে অর্জিত। কোনো শর্টকাট নয়।")}</p>
         </div>
@@ -183,11 +183,11 @@ function HowItWorks() {
               <div className={`relative h-[384px] overflow-hidden px-6 pt-6 ${st.tint}`}>
                 <div aria-hidden className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/50" />
                 <div aria-hidden className="absolute -bottom-12 -left-10 h-40 w-40 rounded-full bg-white/40" />
-                <span className="absolute left-4 top-4 z-10 grid h-9 w-9 place-items-center rounded-full bg-ruchi-600 font-display text-lg font-extrabold text-white shadow-card">{st.n}</span>
+                <span className="absolute left-4 top-4 z-10 grid h-9 w-9 place-items-center rounded-full bg-leaf-600 font-display text-lg font-extrabold text-white shadow-card">{st.n}</span>
                 <div className="relative">{st.scene}</div>
               </div>
               <div className="p-6 text-center">
-                <h3 className="flex items-center justify-center gap-2 text-xl font-extrabold"><st.icon className="h-5 w-5 text-ruchi-600" />{st.title}</h3>
+                <h3 className="flex items-center justify-center gap-2 text-xl font-extrabold"><st.icon className="h-5 w-5 text-leaf-600" />{st.title}</h3>
                 <p className="mx-auto mt-1.5 max-w-[18rem] text-sm leading-relaxed text-ink-500">{st.desc}</p>
               </div>
             </motion.li>
@@ -206,13 +206,13 @@ function Destinations() {
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-ruchi-600">{tr("Destinations", "গন্তব্য")}</p>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-leaf-600">{tr("Destinations", "গন্তব্য")}</p>
           <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">{tr("Where will you go first?", "প্রথমে কোথায় যাবেন?")}</h2>
         </div>
         <div className="flex items-center gap-2">
-          <Link href="/explore" className="mr-2 hidden items-center gap-1 text-sm font-bold text-ruchi-700 sm:inline-flex">{t("seeAll")} <ArrowRight className="h-4 w-4" /></Link>
+          <Link href="/explore" className="mr-2 hidden items-center gap-1 text-sm font-bold text-leaf-700 sm:inline-flex">{t("seeAll")} <ArrowRight className="h-4 w-4" /></Link>
           <button onClick={() => sw?.slidePrev()} disabled={edge.start} aria-label="Previous" className="grid h-11 w-11 place-items-center rounded-full border border-paper-300 bg-white transition hover:border-ink disabled:opacity-35"><ChevronLeft className="h-5 w-5" /></button>
-          <button onClick={() => sw?.slideNext()} disabled={edge.end} aria-label="Next" className="grid h-11 w-11 place-items-center rounded-full bg-ruchi-600 text-white shadow-card transition hover:bg-ruchi-700 disabled:opacity-35"><ChevronRight className="h-5 w-5" /></button>
+          <button onClick={() => sw?.slideNext()} disabled={edge.end} aria-label="Next" className="grid h-11 w-11 place-items-center rounded-full bg-leaf-600 text-white shadow-card transition hover:bg-leaf-700 disabled:opacity-35"><ChevronRight className="h-5 w-5" /></button>
         </div>
       </div>
 
@@ -241,7 +241,7 @@ function Destinations() {
                 <p className="mt-0.5 flex items-center gap-1 text-sm text-white/85"><MapPin className="h-3.5 w-3.5" />{pick(p.location, lang)}</p>
                 <div className="mt-3 flex items-center justify-between border-t border-white/20 pt-3 text-xs font-semibold">
                   <span className="inline-flex items-center gap-1.5"><CalendarDays className="h-3.5 w-3.5" />{pick(p.bestTime, lang)}</span>
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white text-ruchi-700 transition-transform group-hover:translate-x-0.5"><ArrowRight className="h-4 w-4" /></span>
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white text-leaf-700 transition-transform group-hover:translate-x-0.5"><ArrowRight className="h-4 w-4" /></span>
                 </div>
               </div>
             </Link>
@@ -262,7 +262,7 @@ function Highlights() {
     <section className="bg-white">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-ruchi-600">{tr("Community", "কমিউনিটি")}</p>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-leaf-600">{tr("Community", "কমিউনিটি")}</p>
           <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">{tr("More than a checklist", "শুধু তালিকা নয়")}</h2>
           <p className="mt-2 text-ink-500">{tr("Discover secret places, watch trips and race your friends.", "গোপন স্থান খুঁজুন, ভ্রমণ দেখুন, বন্ধুদের সাথে প্রতিযোগিতা করুন।")}</p>
         </div>
@@ -273,7 +273,7 @@ function Highlights() {
             <Image src={spot.gallery[2] ?? spot.image} alt="" fill sizes="700px" className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-105" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-6 text-white">
-              <span className="inline-flex items-center gap-1.5 rounded-md bg-ruchi-600 px-2.5 py-1 text-xs font-bold uppercase tracking-wider"><Sparkles className="h-3.5 w-3.5" />{tr("Hidden spots", "গোপন স্থান")}</span>
+              <span className="inline-flex items-center gap-1.5 rounded-md bg-leaf-600 px-2.5 py-1 text-xs font-bold uppercase tracking-wider"><Sparkles className="h-3.5 w-3.5" />{tr("Hidden spots", "গোপন স্থান")}</span>
               <h3 className="mt-3 max-w-md text-2xl font-extrabold leading-tight sm:text-3xl">{tr("Places few people know", "যে জায়গা খুব কম মানুষ চেনে")}</h3>
               <p className="mt-1.5 max-w-md text-white/85">{tr("Travellers share secret spots with routes. Admins review each one before it goes live.", "ভ্রমণকারীরা রুটসহ গোপন স্থান শেয়ার করেন। প্রকাশের আগে অ্যাডমিন যাচাই করেন।")}</p>
               <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold">{tr("Discover", "খুঁজে দেখুন")} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
@@ -284,9 +284,9 @@ function Highlights() {
           <Link href="/reels" className="group relative min-h-[320px] overflow-hidden rounded-2xl bg-ink md:row-span-2">
             <Image src={reel.poster} alt="" fill sizes="400px" className="object-cover transition-transform duration-700 group-hover:scale-105" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/25" />
-            <span className="absolute left-1/2 top-1/2 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ruchi-600 shadow-lift"><Play className="h-7 w-7 fill-current" /></span>
+            <span className="absolute left-1/2 top-1/2 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-leaf-700 shadow-lift"><Play className="h-7 w-7 fill-current" /></span>
             <div className="absolute inset-x-0 bottom-0 p-6 text-white">
-              <span className="inline-flex items-center gap-1.5 rounded-md bg-white px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-ink"><Clapperboard className="h-3.5 w-3.5 text-ruchi-600" />{tr("Reels & posts", "রিলস ও পোস্ট")}</span>
+              <span className="inline-flex items-center gap-1.5 rounded-md bg-white px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-ink"><Clapperboard className="h-3.5 w-3.5 text-leaf-700" />{tr("Reels & posts", "রিলস ও পোস্ট")}</span>
               <h3 className="mt-3 text-2xl font-extrabold leading-tight">{tr("Trips, told in motion", "ভ্রমণের গল্প, চলমান ছবিতে")}</h3>
               <div className="mt-3 flex items-center gap-3 text-sm font-semibold text-white/90">
                 <Image src={reel.author.avatar} alt="" width={28} height={28} className="h-7 w-7 rounded-full object-cover" />
@@ -300,7 +300,7 @@ function Highlights() {
           <Link href="/leaderboard" className="group rounded-2xl border border-paper-200 bg-paper p-6 transition-shadow hover:shadow-lift md:col-span-2">
             <div className="flex items-center justify-between gap-3">
               <span className="inline-flex items-center gap-1.5 rounded-md bg-ink px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-white"><Trophy className="h-3.5 w-3.5 text-gold-400" />{tr("Leaderboard", "লিডারবোর্ড")}</span>
-              <span className="inline-flex items-center gap-1.5 text-sm font-bold text-ruchi-700">{tr("See ranking", "র‍্যাংকিং দেখুন")} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+              <span className="inline-flex items-center gap-1.5 text-sm font-bold text-leaf-700">{tr("See ranking", "র‍্যাংকিং দেখুন")} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
             </div>
             <h3 className="mt-3 text-2xl font-extrabold leading-tight">{tr("Race your friends to the top", "বন্ধুদের হারিয়ে শীর্ষে উঠুন")}</h3>
             <ul className="mt-5 grid gap-2.5 sm:grid-cols-3">
@@ -341,11 +341,11 @@ export function Landing() {
               <>
                 এক স্ট্যাম্পে
                 <br />
-                <span className="text-ruchi-600">বাংলাদেশ</span> জয়
+                <span className="text-leaf-600">বাংলাদেশ</span> জয়
               </>
             ) : (
               <>
-                Collect <span className="text-ruchi-600">Bangladesh</span>,
+                Collect <span className="text-leaf-600">Bangladesh</span>,
                 <br />
                 one stamp at a time.
               </>
@@ -388,13 +388,13 @@ export function Landing() {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="dots relative isolate overflow-hidden rounded-3xl bg-ruchi-600 p-6 pb-10 sm:p-10"
+          className="dots relative isolate overflow-hidden rounded-3xl bg-leaf-700 p-6 pb-10 shadow-lift sm:p-10"
         >
           <span aria-hidden className="absolute -right-8 -top-8 -z-10 h-40 w-40 rounded-full bg-gold-500 opacity-95" />
-          <span aria-hidden className="absolute -right-2 top-2 -z-10 h-28 w-28 rounded-full bg-gold-400/70" />
+          <span aria-hidden className="absolute -right-2 top-2 -z-10 h-28 w-28 rounded-full bg-gold-400/80" />
           <svg aria-hidden viewBox="0 0 400 90" preserveAspectRatio="none" className="absolute inset-x-0 bottom-0 -z-10 h-24 w-full">
-            <path d="M0 90 L0 55 L60 20 L110 52 L170 12 L240 60 L300 28 L360 58 L400 40 L400 90 Z" fill="#2c8236" />
-            <path d="M0 90 L0 72 L80 50 L140 72 L210 46 L280 74 L350 54 L400 68 L400 90 Z" fill="#1e5025" />
+            <path d="M0 90 L0 55 L60 20 L110 52 L170 12 L240 60 L300 28 L360 58 L400 40 L400 90 Z" fill="#0b4b25" />
+            <path d="M0 90 L0 72 L80 50 L140 72 L210 46 L280 74 L350 54 L400 68 L400 90 Z" fill="#073821" />
           </svg>
           <p className="font-display text-sm font-bold uppercase tracking-[0.2em] text-white/80">
             {tr("Your passport", "আপনার পাসপোর্ট")}
@@ -412,7 +412,7 @@ export function Landing() {
             ))}
           </div>
           <div className="mt-8 flex items-center gap-2 text-sm font-semibold text-white">
-            <span className="grid h-6 w-6 place-items-center rounded bg-white text-ruchi-600">
+            <span className="grid h-6 w-6 place-items-center rounded bg-gold-500 text-ink shadow">
               <StampIcon className="h-3.5 w-3.5" />
             </span>
             {tr("3 of 20 stamps collected", "২০টির মধ্যে ৩টি স্ট্যাম্প সংগৃহীত")}
@@ -426,11 +426,13 @@ export function Landing() {
 
       {/* CTA */}
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-        <div className="dots relative overflow-hidden rounded-3xl bg-ruchi-600 px-6 py-12 text-center text-white sm:px-12">
+        <div className="dots relative overflow-hidden rounded-3xl bg-leaf-700 px-6 py-12 text-center text-white shadow-lift sm:px-12">
+          <span aria-hidden className="absolute -left-10 -top-10 -z-10 h-40 w-40 rounded-full bg-gold-500/20" />
+          <span aria-hidden className="absolute -right-10 -bottom-10 -z-10 h-48 w-48 rounded-full bg-gold-500/15" />
           <h2 className="text-3xl font-extrabold sm:text-4xl">{tr("Your first stamp is waiting.", "আপনার প্রথম স্ট্যাম্প অপেক্ষা করছে।")}</h2>
           <p className="mx-auto mt-3 max-w-md text-white/85">{tr("Create a free account and start exploring.", "বিনামূল্যে অ্যাকাউন্ট খুলে এক্সপ্লোর শুরু করুন।")}</p>
           <Link href="/register" className="mt-7 inline-block">
-            <Button size="lg" variant="dark">
+            <Button size="lg" variant="red">
               {t("register")} <ArrowRight className="h-5 w-5" />
             </Button>
           </Link>

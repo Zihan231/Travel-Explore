@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { LangToggle } from "@/components/lang-toggle";
 import { cn } from "@/lib/utils";
 
-const field = "h-11 w-full rounded-lg border border-paper-300 bg-white px-3.5 text-sm outline-none focus:border-ruchi-600 focus:ring-2 focus:ring-ruchi-600/15";
+const field = "h-11 w-full rounded-lg border border-paper-300 bg-white px-3.5 text-sm outline-none focus:border-leaf-600 focus:ring-2 focus:ring-leaf-600/15";
 
 function Group({ title, children }: { title: string; children: React.ReactNode }) {
   return (

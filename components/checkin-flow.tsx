@@ -76,13 +76,13 @@ export function CheckinFlow({ place }: { place: Place }) {
       <AnimatePresence mode="wait">
         {step === "location" && (
           <motion.div key="loc" {...fade} className="flex h-full flex-col items-center justify-center px-8 text-center">
-            <span className="grid h-20 w-20 place-items-center rounded-2xl bg-ruchi-600 shadow-lift">
+            <span className="grid h-20 w-20 place-items-center rounded-2xl bg-leaf-600 shadow-lift">
               <Navigation className="h-9 w-9" />
             </span>
             <h1 className="mt-7 text-3xl font-extrabold">{t("enableLocation")}</h1>
             <p className="mt-2 max-w-xs text-white/70">{t("locationNeeded")}</p>
             <div className="mt-5 flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold">
-              <MapPin className="h-4 w-4 text-ruchi-300" />
+              <MapPin className="h-4 w-4 text-leaf-300" />
               {pick(place.name, lang)}, {pick(place.location, lang)}
             </div>
             <Button size="lg" className="mt-8 w-full max-w-xs" onClick={verify}>
@@ -100,7 +100,7 @@ export function CheckinFlow({ place }: { place: Place }) {
             <div className="relative h-32 w-32">
               <svg className="h-32 w-32 -rotate-90" viewBox="0 0 128 128">
                 <circle cx="64" cy="64" r="56" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="8" />
-                <circle cx="64" cy="64" r="56" fill="none" stroke="#d1181f" strokeWidth="8" strokeLinecap="round" strokeDasharray={2 * Math.PI * 56} strokeDashoffset={2 * Math.PI * 56 * (1 - progress / 100)} style={{ transition: "stroke-dashoffset 0.2s" }} />
+                <circle cx="64" cy="64" r="56" fill="none" stroke="#006535" strokeWidth="8" strokeLinecap="round" strokeDasharray={2 * Math.PI * 56} strokeDashoffset={2 * Math.PI * 56 * (1 - progress / 100)} style={{ transition: "stroke-dashoffset 0.2s" }} />
               </svg>
               <span className="absolute inset-0 grid place-items-center font-display text-3xl font-extrabold">{Math.round(progress)}%</span>
             </div>

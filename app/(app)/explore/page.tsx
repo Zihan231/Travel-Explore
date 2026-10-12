@@ -53,7 +53,7 @@ export default function ExplorePage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t("search")}
-            className="h-12 w-full rounded-xl border border-paper-300 bg-white pl-11 pr-4 text-[15px] outline-none transition-colors placeholder:text-ink-400 focus:border-ruchi-600 focus:ring-2 focus:ring-ruchi-600/15"
+            className="h-12 w-full rounded-xl border border-paper-300 bg-white pl-11 pr-4 text-[15px] outline-none transition-colors placeholder:text-ink-400 focus:border-leaf-600 focus:ring-2 focus:ring-leaf-600/15"
           />
         </div>
         {!isAdmin && (
@@ -70,7 +70,7 @@ export default function ExplorePage() {
             onClick={() => setCat(c.id)}
             className={cn(
               "shrink-0 rounded-lg border px-4 py-2 text-sm font-semibold transition-colors",
-              cat === c.id ? "border-ruchi-600 bg-ruchi-600 text-white" : "border-paper-300 bg-white text-ink-700 hover:border-ink"
+              cat === c.id ? "border-leaf-600 bg-leaf-600 text-white" : "border-paper-300 bg-white text-ink-700 hover:border-ink"
             )}
           >
             {pick(c.label, lang)}

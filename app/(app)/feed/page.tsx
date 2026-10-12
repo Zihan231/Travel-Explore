@@ -24,7 +24,7 @@ export default function FeedPage() {
       <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1 no-scrollbar">
         {places.slice(0, 7).map((p) => (
           <Link key={p.id} href={`/places/${p.slug}`} className="flex w-16 shrink-0 flex-col items-center gap-1.5">
-            <span className="rounded-xl bg-ruchi-600 p-[2px]">
+            <span className="rounded-xl bg-leaf-600 p-[2px]">
               <Image src={p.image} alt={p.name.en} width={56} height={56} className="h-14 w-14 rounded-[10px] object-cover ring-2 ring-white" />
             </span>
             <span className="w-full truncate text-center text-[11px] font-semibold text-ink-700">{p.name.en.split(" ")[0]}</span>
@@ -34,7 +34,7 @@ export default function FeedPage() {
 
       {isGuest && (
         <Link href="/login" className="flex items-center gap-3 rounded-2xl border border-dashed border-paper-300 bg-white p-4 shadow-card">
-          <span className="grid h-10 w-10 place-items-center rounded-full bg-ruchi-50 text-ruchi-600"><LogIn className="h-5 w-5" /></span>
+          <span className="grid h-10 w-10 place-items-center rounded-full bg-leaf-50 text-leaf-700"><LogIn className="h-5 w-5" /></span>
           <span className="flex-1 text-sm"><b>{tr("Log in to post and react", "পোস্ট ও রিয়্যাক্ট করতে লগ ইন করুন")}</b><br /><span className="text-ink-500">{tr("You can read everything without an account.", "অ্যাকাউন্ট ছাড়াই সব পড়তে পারবেন।")}</span></span>
         </Link>
       )}

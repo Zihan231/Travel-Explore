@@ -17,6 +17,7 @@ import { SquareMark } from "@/components/brand";
 import { RarityTag } from "@/components/rarity-tag";
 import { CheckinsReview } from "@/components/admin-parts";
 import { Button } from "@/components/ui/button";
+import { MissionCard } from "@/components/mission-card";
 import { cn } from "@/lib/utils";
 
 type Tab = "stamps" | "missions" | "badges";
@@ -49,10 +50,10 @@ const milestones = [
 function IdentityPage({ collected }: { collected: number }) {
   const { tr, t } = useI18n();
   return (
-    <section className="relative overflow-hidden rounded-2xl border border-ruchi-800/30 bg-ruchi-700 text-white shadow-lift">
+    <section className="relative overflow-hidden rounded-2xl border border-leaf-800/40 bg-leaf-800 text-white shadow-lift">
       <div className="dots absolute inset-0" />
       <div className="relative flex">
-        <div className="hidden w-14 shrink-0 flex-col items-center justify-between bg-ruchi-800 py-5 sm:flex">
+        <div className="hidden w-14 shrink-0 flex-col items-center justify-between bg-leaf-900 py-5 sm:flex">
           <SquareMark className="h-6 w-6" />
           <span className="[writing-mode:vertical-rl] rotate-180 text-[10px] font-bold uppercase tracking-[0.35em] text-white/70">Ruchi Explore Limitless</span>
           <span className="font-display text-xl font-extrabold leading-none">রুচি</span>
@@ -64,7 +65,7 @@ function IdentityPage({ collected }: { collected: number }) {
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/75">{tr("Digital passport", "ডিজিটাল পাসপোর্ট")}</p>
               <p className="mt-0.5 hidden text-[11px] font-semibold text-white/60 sm:block">People&apos;s Republic of Bangladesh · Explorer Edition</p>
             </div>
-            <span className="shrink-0 whitespace-nowrap rounded-md bg-white px-2.5 py-1 font-display text-sm font-extrabold text-ruchi-700">№ BD-0004</span>
+            <span className="shrink-0 whitespace-nowrap rounded-md bg-gold-500 px-2.5 py-1 font-display text-sm font-extrabold text-ink shadow">№ BD-0004</span>
           </div>
 
           <div className="mt-5 flex gap-4">
@@ -110,16 +111,16 @@ function Milestones({ collected }: { collected: number }) {
   return (
     <section className="rounded-2xl border border-paper-200 bg-white p-4 shadow-card sm:p-5">
       <div className="flex items-center justify-between gap-3">
-        <h2 className="flex items-center gap-2 font-display text-lg font-bold"><Gift className="h-5 w-5 text-ruchi-600" />{tr("Rewards", "পুরস্কার")}</h2>
+        <h2 className="flex items-center gap-2 font-display text-lg font-bold"><Gift className="h-5 w-5 text-gold-500" />{tr("Rewards", "পুরস্কার")}</h2>
         {next && <p className="text-xs font-semibold text-ink-500">{tr(`${next.at - collected} more to unlock`, `আনলক করতে আরও ${next.at - collected}টি`)} <b className="text-ink">{tr(next.en, next.bn)}</b></p>}
       </div>
       <div className="relative mb-3 mt-6 h-2 rounded-full bg-paper-100 sm:mb-9">
-        <motion.div initial={{ width: 0 }} animate={{ width: `${(collected / max) * 100}%` }} transition={{ duration: 0.8 }} className="h-full rounded-full bg-ruchi-600" />
+        <motion.div initial={{ width: 0 }} animate={{ width: `${(collected / max) * 100}%` }} transition={{ duration: 0.8 }} className="h-full rounded-full bg-leaf-600" />
         {milestones.map((m) => {
           const done = collected >= m.at;
           return (
             <div key={m.at} className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ left: `${(m.at / max) * 100}%` }}>
-              <span className={cn("grid h-7 w-7 place-items-center rounded-full border-2 bg-white text-xs font-extrabold", done ? "border-ruchi-600 bg-ruchi-600 text-white" : "border-paper-300 text-ink-500")}>
+              <span className={cn("grid h-7 w-7 place-items-center rounded-full border-2 bg-white text-xs font-extrabold", done ? "border-leaf-600 bg-leaf-600 text-white" : "border-paper-300 text-ink-500")}>
                 {done ? <Check className="h-3.5 w-3.5" strokeWidth={3} /> : m.at}
               </span>
               <span className="absolute left-1/2 top-9 hidden w-24 -translate-x-1/2 text-center text-[10px] font-semibold leading-tight text-ink-500 sm:block">{tr(m.en, m.bn)}</span>
@@ -139,7 +140,7 @@ function EmptySlot({ place }: { place: Place }) {
         <span className="mx-auto grid h-10 w-10 place-items-center rounded-full bg-white text-ink-400 shadow-card"><Lock className="h-4 w-4" /></span>
         <p className="mt-3 font-display text-sm font-bold leading-tight text-ink-700">{pick(place.name, lang)}</p>
         <p className="mt-0.5 text-[11px] text-ink-500">{tr("Not visited yet", "এখনও যাওয়া হয়নি")}</p>
-        <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-ruchi-700">{tr("Unlock", "আনলক করুন")} <ArrowRight className="h-3 w-3" /></span>
+        <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-leaf-700">{tr("Unlock", "আনলক করুন")} <ArrowRight className="h-3 w-3" /></span>
       </div>
     </div>
   );
@@ -241,7 +242,7 @@ function Passport() {
         <div className="space-y-6">
           <div className="flex gap-2 overflow-x-auto no-scrollbar">
             {([["all", "All", "সব"], ["collected", "Collected", "সংগৃহীত"], ["todo", "To visit", "যেতে বাকি"]] as const).map(([k, en, bn]) => (
-              <button key={k} onClick={() => setFilter(k)} className={cn("shrink-0 rounded-lg border px-4 py-2 text-sm font-semibold transition-colors", filter === k ? "border-ruchi-600 bg-ruchi-600 text-white" : "border-paper-300 bg-white text-ink-700 hover:border-ink")}>
+              <button key={k} onClick={() => setFilter(k)} className={cn("shrink-0 rounded-lg border px-4 py-2 text-sm font-semibold transition-colors", filter === k ? "border-leaf-600 bg-leaf-600 text-white" : "border-paper-300 bg-white text-ink-700 hover:border-ink")}>
                 {tr(en, bn)}
               </button>
             ))}
@@ -253,7 +254,7 @@ function Passport() {
               <section key={division} className="rounded-2xl border border-paper-200 bg-white p-4 shadow-card sm:p-5">
                 <div className="mb-4 flex items-center justify-between border-b border-dashed border-paper-300 pb-3">
                   <h3 className="flex items-center gap-2 font-display text-lg font-bold">
-                    <span className="grid h-7 w-7 place-items-center rounded-md bg-ruchi-600 text-xs font-extrabold text-white">{pageIdx + 1}</span>
+                    <span className="grid h-7 w-7 place-items-center rounded-md bg-leaf-600 text-xs font-extrabold text-white">{pageIdx + 1}</span>
                     {division}
                   </h3>
                   <span className="text-xs font-bold text-ink-500">{got} / {list.length} {tr("stamps", "স্ট্যাম্প")}</span>
@@ -283,24 +284,9 @@ function Passport() {
       )}
 
       {tab === "missions" && (
-        <div className="space-y-3">
+        <div className="grid gap-4 sm:grid-cols-2">
           {missions.map((m) => (
-            <div key={m.id} className="rounded-2xl border border-paper-200 bg-white p-4 shadow-card">
-              <div className="flex items-start justify-between gap-2">
-                <div>
-                  <p className="font-display text-lg font-bold">{pick(m.title, lang)}</p>
-                  <p className="text-sm text-ink-500">{pick(m.desc, lang)}</p>
-                </div>
-                {m.season && <span className="shrink-0 rounded-md bg-ruchi-50 px-2 py-1 text-[11px] font-bold uppercase tracking-wide text-ruchi-700">{tr("Seasonal", "মৌসুমি")}</span>}
-              </div>
-              <div className="mt-3 flex items-center gap-3">
-                <div className="h-2 flex-1 overflow-hidden rounded-full bg-paper-100">
-                  <motion.div initial={{ width: 0 }} animate={{ width: `${(m.progress / m.target) * 100}%` }} transition={{ duration: 0.7 }} className="h-full rounded-full bg-leaf-600" />
-                </div>
-                <span className="text-sm font-bold text-ink-700">{m.progress}/{m.target}</span>
-              </div>
-              <p className="mt-2.5 flex items-center gap-1.5 text-xs font-semibold text-leaf-700"><Award className="h-3.5 w-3.5" />{tr("Reward", "পুরস্কার")}: {pick(m.reward, lang)}</p>
-            </div>
+            <MissionCard key={m.id} mission={m} />
           ))}
         </div>
       )}
@@ -309,7 +295,7 @@ function Passport() {
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {badges.map((b) => (
             <div key={b.id} className={cn("relative flex flex-col items-center rounded-2xl border p-4 text-center", b.earned ? "border-paper-200 bg-white shadow-card" : "border-dashed border-paper-300 bg-transparent")}>
-              <span className={cn("grid h-14 w-14 place-items-center rounded-xl", b.earned ? "bg-ruchi-50 text-ruchi-600" : "bg-paper-100 text-ink-400")}>
+              <span className={cn("grid h-14 w-14 place-items-center rounded-xl", b.earned ? "bg-gold-100 text-gold-600" : "bg-paper-100 text-ink-400")}>
                 <b.icon className="h-7 w-7" />
               </span>
               <p className={cn("mt-2.5 text-xs font-bold leading-tight", !b.earned && "text-ink-500")}>{tr(b.en, b.bn)}</p>
@@ -328,12 +314,12 @@ function GuestPassport() {
   const { lang, tr, t } = useI18n();
   return (
     <div className="space-y-6">
-      <section className="dots relative overflow-hidden rounded-2xl bg-ruchi-600 p-6 text-white shadow-lift">
+      <section className="dots relative overflow-hidden rounded-2xl bg-leaf-700 p-6 text-white shadow-lift">
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/80">{tr("Digital passport", "ডিজিটাল পাসপোর্ট")}</p>
         <h1 className="mt-1 text-3xl font-extrabold sm:text-4xl">{tr("Every place has its own stamp.", "প্রতিটি স্থানের নিজস্ব স্ট্যাম্প আছে।")}</h1>
         <p className="mt-2 max-w-md text-white/85">{tr("Visit a destination, check in with a live selfie and the stamp is yours. Log in to start your collection.", "গন্তব্যে গিয়ে লাইভ সেলফিতে চেক-ইন করলেই স্ট্যাম্প আপনার। সংগ্রহ শুরু করতে লগ ইন করুন।")}</p>
         <div className="mt-5 flex flex-wrap gap-2.5">
-          <Link href="/register"><Button variant="dark">{tr("Start collecting", "সংগ্রহ শুরু করুন")}</Button></Link>
+          <Link href="/register"><Button variant="red">{tr("Start collecting", "সংগ্রহ শুরু করুন")}</Button></Link>
           <Link href="/login"><Button variant="outline">{tr("Log in", "লগ ইন")}</Button></Link>
         </div>
       </section>
@@ -358,15 +344,22 @@ function GuestPassport() {
         </div>
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-extrabold">{t("missions")}</h2>
-        <div className="grid gap-3 sm:grid-cols-2">
+      <section className="space-y-4">
+        <div>
+          <h2 className="flex items-center gap-2 font-display text-xl font-extrabold sm:text-2xl text-ink">
+            <Target className="h-6 w-6 text-leaf-600" />
+            {t("missions")}
+          </h2>
+          <p className="mt-1 text-xs sm:text-sm text-ink-500">
+            {tr(
+              "Complete travel quests across Bangladesh to unlock exclusive badges and stamps.",
+              "বাংলাদেশজুড়ে ট্রাভেল কোয়েস্ট সম্পন্ন করে এক্সক্লুসিভ ব্যাজ ও স্ট্যাম্প অর্জন করুন।"
+            )}
+          </p>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
           {missions.map((m) => (
-            <div key={m.id} className="rounded-2xl border border-paper-200 bg-white p-4 shadow-card">
-              <p className="font-display text-lg font-bold">{pick(m.title, lang)}</p>
-              <p className="text-sm text-ink-500">{pick(m.desc, lang)}</p>
-              <p className="mt-2.5 flex items-center gap-1.5 text-xs font-semibold text-leaf-700"><Award className="h-3.5 w-3.5" />{tr("Reward", "পুরস্কার")}: {pick(m.reward, lang)}</p>
-            </div>
+            <MissionCard key={m.id} mission={m} isGuest={true} />
           ))}
         </div>
       </section>

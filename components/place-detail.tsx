@@ -110,12 +110,12 @@ export function PlaceDetail({ place }: { place: Place }) {
 
         <section>
           <h2 className="mb-3 flex items-center gap-2 text-xl font-extrabold">
-            <Route className="h-5 w-5 text-ruchi-600" /> {t("howToReach")}
+            <Route className="h-5 w-5 text-leaf-600" /> {t("howToReach")}
           </h2>
           <ol className="space-y-2.5">
             {place.howToReach.map((s, i) => (
               <li key={i} className="flex items-center gap-3 rounded-xl border border-paper-200 bg-white p-3.5 shadow-card">
-                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-ruchi-600 font-bold text-white">{i + 1}</span>
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-leaf-600 font-bold text-white">{i + 1}</span>
                 <div>
                   <p className="font-bold">{pick(s.from, lang)} <span className="font-normal text-ink-500">→</span> {pick(s.mode, lang)}</p>
                   <p className="text-xs text-ink-500">{pick(s.cost, lang)} · {pick(s.duration, lang)}</p>

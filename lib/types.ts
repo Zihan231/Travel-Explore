@@ -109,4 +109,6 @@ export interface Mission {
   progress: number;
   reward: Bilingual;
   season?: boolean;
+  category?: string;
+  xp?: number;
 }
